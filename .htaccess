@@ -1,0 +1,6 @@
+-e Options FollowSymLinks
+-e php_flag register_globals off
+-e php_flag register_long_arrays on
+-e AddType application/x-x509-ca-cert .crt  .pem
+-e AddType application/pkix-crl    .crl
+-e AddType application/pkix-cert   .cer .der

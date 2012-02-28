@@ -1,0 +1,16 @@
+TO DO, IN NO PARTICULAR ORDER:
+
+Add CA certificate renewal to sysadmin script (ca/admin/index.php)
+
+Add paging features to Certificate Management Control Panel instead of
+having all certificates listed on a single page. This is not really
+very necessary unless one will be issuing hundreds of certificates.  Even
+with 200 certificates, the control panel display is very manageable.
+
+Use a relational database such as MySQL to maintain the certificate database
+instead using the built-in OpenSSL CA feature.  This will only be necessary
+if it turns out that the built in OpenSSL CA doesn't perform well.
+
+More documentation and help files.
+
+Support multi-homed server certificates

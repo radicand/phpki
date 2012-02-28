@@ -1,0 +1,129 @@
+v0.01:	03-Mar-21:
+- Limited preview release.
+
+v0.02:	03-Mar-22:
+- Improved user fiendliness of some terminology.
+- Added Unit column to, removed serial column from control panel.
+- Added Makefile to make distclean for distribution.
+- Improved installation/setup automation with PHP setup script, Makefile
+  and secure.sh script.
+- Added support for NetscapeRevocationURL protocol.
+- Minor fixes.
+- Minor help file changes.
+
+v0.03:
+- Added System Admin module under ca/admin for creating adding/removing users
+  and updating CRL.
+- Fixed NetscapeRevocationURL malformed URL (was missing '?' at end of URL)
+- Revoked certificates can now be found with public search, but cannot be
+  downloaded.  Certificate status is shown.
+- Added authorityInfoAccess extension to certificates.
+- All forms should now load with cursor focus in first field.
+- E-mail addresses are now clickable "mailto:" links.
+- Added sample crontab CRL update script for use with RedHat style
+  /etc/cron.monthly crontab layout.
+- Probably some minor bug fixes not worth listing separately.
+- Updated HELP screenshots
+
+v0.04:
+- Fixed a download problem which could cause corrupted certificates and
+  CRLs.  The upload() function was using fpassthru() which automatically
+  closes the file.  A subsequent fclose() error was adding extra junk to
+  the end of downloads.  Switched to readfile().
+- Added end-user help screens. More to come.
+    A brief explanation of PKI and e-mail encryption.
+    Root certificate installation for Outlook/Express
+    Personal e-mail certificate installation for Outlook/Express
+- Some tweaking of certificate downloads to be more Netscape friendly.
+- Some clean-up and reorganization of files, directories, and symlinks.
+
+v0.05
+- Added cert status filter to end-user search.
+- Cleaned up some double/single quoting.
+- SECURITY: Using escapeshellarg() throughout openssl_functions.
+- SECURITY: gpvar() adds slashes if magic_quotes_gpc is disabled.
+
+v0.06
+- Added EXPERIMENTAL Web server certificate support.
+- Added practices & policy statements
+- Added descriptions to menu selections.
+- SECURITY: Tightened permissions set by secure.sh script.
+- SECURITY: Fixed insecure temp file creation in create_user_cnf().
+
+v0.60
+- Shifted version number left one digit to signify move to BETA status.
+
+v0.70
+- Fixed various typographical errors.
+- Fixed updating of DER formatted CRL when using admin menu.
+- Added IPSEC/VPN certificate type (reduced size).
+- Allow server & VPN certificates with no password.
+- Allow password file location to be specified during setup.
+- Allow multiple certificates with same e-mail address _OR_ common_name.
+- Allow key size selection 512 to 4096 bits.
+- Consolidated certificate request forms (select type from dropdown).
+- CRL is automatically updated when certificates are revoked.
+- Moved CRL update function from admin menu to certificate management menu.
+- Changed internal extention for DER files from .crt to .der
+- Changed control panel buttons to icons shamelessly stolen from phpMyAdmin & KDE.
+- Changed pkcs12 download file extention to "p12". Remains "pfx" internally.
+- Changed public certificate download file extention to "cer" (RFC 2585).
+- Changed public certificate mime type to "application/pkix-cert" (RFC 2585).
+- Changed CRL mime type to "application/pkix-crl" (RFC 2585).
+- Some code clean-up and consolidation in openssl_functions.php.
+- Updated help file and screenshots.
+- This version has not been thoroughly tested.  Please log bug report on 
+  sourceforge site.
+- Other things I can't remember.
+
+v0.80
+- Major restructuring to allow certificates and configuration to be 
+  stored outside of DOCUMENT_ROOT.  Some might consider this a 
+  security enhancement.
+- Eliminated most of the symbolic links between interfaces.
+- Moved the admin interface from ./ca/admin to ./admin
+- Removed code to fix DER certificate extensions from secure.sh
+  You will have to do this manually if you skipped v0.70.
+- The secure.sh script will ask the location of the phpkipasswd file
+  and attempt to create one if necessary.
+- Added support for a DEMO mode to allow switching between the
+  public and private interfaces using the menu. Configure it in
+  config.php
+
+v0.81 (not a public release)
+- Modified VPN certificate extension to work properly with OpenVPN
+- Added VPN Client Only, VPN Server Only, VPN Client & Server types
+- Removed restrictions on certificate password contents and maximum length
+- Fixed duplicate certificate error when requested common name was a
+  substring of an existing common name
+
+v0.82 (possibly final release)
+- Fixed expiry ignored and defaults to one year when renewing certificate
+- Fixed missing quotes in CA_generate_crl
+- Fixed missing quotes in request_cert.php
+- Added documentation regarding method=post error on php5
+- Switched on register_long_arrays in .htaccess.  
+  Hope there is no breakage on php4.
+- Added support for code signing certificates
+- Trimmed some redundant code in CA_create_cert() & CA_renew_cert()
+- Fixed "Go Back" button on download form
+- Fixed quoting ambiguities when config.php files are created, which
+  causes warnings to be logged on some web server configurations.
+  Depending on how much this bugs you and how you upgrade, you may have
+  to manually fix this by correclty quoting constant definitions within 
+  install_dir/config.php.  e.g. define('CONSTANT','somevaluehere') 
+- Added support for multiple admins.  Edit data_store/config/config.php
+  after installation and configuration. Idea by Micheal Braun.
+- secure.sh automatically creates the 'pkiadmin' user.
+- Fixed chown in secure.sh for FreeBSD compatibility.
+- Fixed quote mismatch in ca/help.php
+- Added support for time stamping certificates, Idea by Sebastien Bahlol.
+
+v0.83 (bugfix)
+- Converted deprecated HTTP_SERVER_VARS to _SERVER
+- Fixed emailcodesigning error in openssl_functions.php
+- Fixed failure to create httpasswd file in secure.sh
+- Fixed false positives when detecting if requested email certificate already exists
+- Added support for 4 character TLD in email address
+- Added support for short term certificates (1,3,6 months)
+

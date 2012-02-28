@@ -1,0 +1,144 @@
+<html>
+<head>
+<title>PHPki Glossary</title>
+<link rel='stylesheet' type='text/css' href='../css/style.css'>
+</head>
+<body>
+
+<a name=TOP></a>
+<a name=PKI></a><p>
+<table>
+<th><h2>PUBLIC KEY INFRASTRUCTURE</h2></th>
+<tr><td>
+PKI stands for <cite>Public Key Infrastructure</cite>. PKI is IT infrastructure that enables users of a basically unsecure public network (such as the Internet) to securely and privately exchange data through the use of a public and a private <a href=#KEYS>cryptographic key pair</a> that is obtained and shared through a trusted authority. 
+
+PKI is not only software or hardware. It is an infrastructure.  So, PKI is a combination of products, services, facilities, policies, procedures, agreements, and people.  All of these elements work together to provide for secure interactions on the Internet and other open networks. PKI is not a single monolithic entity, but a distributed system.   The component elements may include multiple organization-specific public key infrastructures that are interoperable and interconnected.
+</td></tr>
+</table>
+
+<a name=CERTIFICATE></a><p>
+<table>
+<th><h2>DIGITAL CERTIFICATE</h2></th>
+<tr><td>
+<p>
+An attachment to an electronic message used for security purposes. The most common use of a digital certificate is to verify that a user sending a message is who he or she claims to be, and to provide the receiver with the means to encode a reply. 
+
+<p>An individual wishing to send an encrypted message applies for a digital certificate from a <a href=#CA>Certificate Authority (CA)</a>. The CA issues an encrypted digital certificate containing the applicant's <a href=#KEYS>public key</a> and a variety of other identification information. The CA makes its own public key readily available through print publicity or perhaps on the Internet. 
+
+<p>The recipient of an encrypted message uses the CA's public key to decode the digital certificate attached to the message, verifies it as issued by the CA and then obtains the sender's public key and identification information held within the certificate. With this information, the recipient can send an encrypted reply. 
+
+<p>The most widely used standard for digital certificates is X.509. 
+</td></tr>
+</table>
+
+<a name=CA></a><p>
+<table>
+<th><h2>CERTIFICATE AUTHORITY</h2></th>
+<tr><td>
+A trusted third-party organization or company that issues digital certificates used to create digital signatures and <a href=#KEYS>public-private key pairs</a>. The role of the CA in this process is to guarantee that the individual granted the unique certificate is, in fact, who he or she claims to be. Usually, this means that the CA has an arrangement with a financial institution, such as a credit card company, which provides it with information to confirm an individual's claimed identity. CAs are a critical component in data security and electronic commerce because they guarantee that the two parties exchanging information are really who they claim to be. 
+</td></tr>
+</table>
+
+<a name=KEYS></a><p>
+<table>
+<th><h2>PUBLIC KEY ENCRYPTION</h2></th>
+<tr><td>
+A cryptographic system that uses two keys -- a public key known to everyone and a private or secret key known only to the recipient of the message. When John wants to send a secure message to Jane, he uses Jane's public key to encrypt the message. Jane then uses her private key to decrypt it. 
+
+<p>An important element to the public key system is that the public and private keys are related in such a way that only the public key can be used to encrypt messages and only the corresponding private key can be used to decrypt them. Moreover, it is virtually impossible to deduce the private key if you know the public key. 
+</td></tr>
+</table>
+
+<a name=SMIME></a><p>
+<table>
+<th><h2>S/MIME</h2></th>
+<tr><td>
+S/MIME (Secure Multi-Purpose Internet Mail Extensions) is a secure method of sending e-mail that uses the <a href=#RSA>RSA</a> encryption system. S/MIME is included in the latest versions of the Web browsers from Microsoft and Netscape and has also been endorsed by other vendors that make messaging products. RSA has proposed S/MIME as a standard to the Internet Engineering Task Force (IETF). 
+</td></tr>
+</table>
+
+<a name=RSA></a><p>
+<table>
+<th><h2>RSA</h2></th>
+<tr><td>
+RSA is an Internet encryption and authentication system that uses an algorithm developed in 1977 by Ron Rivest, Adi Shamir, and Leonard Adleman. The RSA algorithm is the most commonly used encryption and authentication algorithm and is included as part of the Web browsers from Microsoft and Netscape. It's also part of Lotus Notes, Intuit's Quicken, and many other products. The encryption system was owned by RSA Security, but a recent patent expiration placed it into the public domain. The technologies are part of existing or proposed Web, Internet, and computing standards. 
+</td></tr>
+</table>
+
+<a name=ROOT-CERT></a><p>
+<table>
+<th><h2>ROOT CERTIFICATE</h2></th>
+<tr><td>
+A root certificate is like a MASTER
+<a href=#CERTIFICATE>digital certificate</a>.
+You must install a <a href=#CA>certificate authority's</a> root certificate
+before you can trust other certificates issued by that same certificate
+authority.  Root certificates are used to "sign" other certificates.  
+A signature by a root certificate is somewhat analogous to "notarizing" a
+document in the physical world.  When you install a root certificate on your
+computer, you are saying you "trust" that certification authority and all
+certificates it signs.
+</td></tr>
+</table>
+
+<a name=SIGNATURE></a><p>
+<table>
+<th><h2>DIGITAL SIGNATURE</h2></th>
+<tr><td>
+A digital code that can be attached to an electronically transmitted message 
+that uniquely identifies the sender. Like a written signature, the purpose of
+a digital signature is to guarantee that the individual sending the message
+really is who he or she claims to be.  Digital certificates inherently provide
+digital signature capability to most S/MIME enable e-mail clients. Digitally
+signing an e-mail usually provides the recipient the with the sender's public
+key, so the recipient may then send encrypted e-mail back to the sender.
+</td></tr>
+</table>
+
+<a name=X509></a><p>
+<table>
+<th><h2>X.509</h2></th>
+<tr><td>
+The most widely used standard for defining digital certificates. X.509 is 
+actually an ITU Recommendation, which means that has not yet been officially 
+defined or approved. As a result, companies have implemented the standard in 
+different ways. For example, both Netscape and Microsoft use X.509 certificates
+to implement SSL in their web servers and browsers. But an X.509 certificate 
+generated by Netscape may not be readable by Microsoft products, and vice 
+versa.
+</td></tr>
+</table>
+
+<a name=PEM></a><p>
+<table>
+<th><h2>PEM</h2></th>
+<tr><td>
+PEM is a widely used standard for storing digital certificates.  
+A PEM encoded file can contain all of private keys, public keys, and 
+<a href=#X509>(x.509)</a> certificates. It is the default format for OpenSSL.
+It stores data in Base64 encoded format, surrounded by ascii headers, so it is 
+suitable for text mode transfers between systems. PEM files usually end with
+a <cite>.PEM</cite> extension.
+</td></tr>
+</table>
+
+<a name=DER></a><p>
+<table>
+<th><h2>DER</h2></th>
+<tr><td>
+DER is a widely used standard for storing digital certificates. A DER encoded
+file can contain all of private keys, public keys, and <a href=#X509>(x.509)</a>
+certificates.  DER is a binary encoded headerless format.  DER files usually
+end with a <cite>.CRT</cite> or <cite>.CER</cite> extension.
+</td></tr>
+</table>
+
+<a name=PKCS12></a><p>
+<table>
+<th><h2>PKCS #12</h2></th>
+<tr><td>
+PKCS #12 (a.k.a. Personal Information Exchange Standard) is a standard for storing private keys and certificates securely (well sort of). It is used in (among other things) Netscape and Microsoft Internet Explorer with their import and export options. PKCS12 files usually end with a <cite>.PFX</cite> extension.
+</td></tr>
+</table>
+
+<br><br></body></html>

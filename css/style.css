@@ -1,0 +1,172 @@
+h1 {
+	font-size: 32px;
+}
+
+h2 {
+	font-size: 24px;
+}
+
+h3 {
+	font-size: 18px;
+}
+
+body {
+	margin: 10px;
+	padding: 0;
+	background: #fafaff; 
+	font-family: Arial, Veranda, Helvetica, sans-serif;
+	font-size: 12px; 
+}
+
+img {
+	border: 0;
+}
+
+a {
+	color: #00F;   
+	background-color: transparent;
+}
+
+a:link, a:active, a:visited {
+	color: #00F;
+	background-color: transparent;
+}
+
+a.headermenu:link, a.headermenu:active, a.headermenu:visited {
+	text-decoration: underline;
+	color: #00F;
+	background-color: transparent;
+	padding-left: 8px;
+}
+
+form {
+	padding: 0;
+	margin: 0;     
+}
+
+
+fieldset {
+	border: 2px solid black;
+	margin-left: 10px;
+	padding: 10px;
+	width: 700px;
+	font-size: 10px;
+}
+
+legend {
+	background-color: rgb(200, 220, 240);
+	border: 2px solid black;
+	padding: 0.25em;
+	padding-top: 0.1em;
+	font-size: 12px;
+}
+
+table {
+	font-size: 12px;
+	margin-right: .1in;
+}
+
+th {
+   font-weight: bold;
+   background-color: #AFC3E4;
+   padding: 3px;
+   color: #323C4D;
+   text-align: center;
+   vertical-align: middle;
+   border: 1px solid #606060;
+   white-space: nowrap;
+}
+
+td {
+   background-color: #DEE3EC;
+   padding: 3px;
+   text-align: left;
+   vertical-align: middle;
+   border: 1px solid #a0a0a0;
+}
+
+.menu {
+	height: 22px;
+	font-size: 13px;
+	text-align: center;
+	vertical-align: bottom;
+	border: 1px solid #808080;
+	border-left: 2px solid #808080;
+	border-bottom: 2px solid #808080;
+	color: #000000;
+}
+
+.menu-pad {
+	height: 22px;
+	font-size: 13px;
+	text-align: center;
+	padding-left: 1em;
+	padding-right: 1em;
+	vertical-align: bottom;
+	border: 1px solid #808080;
+	border-left: 2px solid #808080;
+	border-bottom: 2px solid #808080;
+	color: #000000;
+}
+.menu a {
+	vertical-align: bottom;
+	text-decoration: none;
+	font-size: 13px;
+
+}
+
+.headermenu-ie {
+	text-align: right;
+	margin-right: 0.1in;
+        margin-top: -0.20in;
+}
+
+.headermenu-konq {
+	text-align: right;
+	margin-right: 0.1in;
+        margin-top: -0.25in;
+}
+
+
+.logo-ie {
+  font-family: 'impact', sans-serif;
+  font-size: 60pt;
+  font-weight: bold;
+  color: #99caff;
+  margin-top: -0.20in;
+  margin-bottom: 0;
+  margin-right: 0.2in;
+  text-align: left;
+}
+
+.title-ie {
+  font-family: 'impact', sans-serif;
+  font-size: 22pt;
+  font-weight: bold;
+  font-style: italic;
+  margin-right: 0.4in;
+  margin-top: -0.52in;
+  margin-bottom: 0;
+  text-align: left; }
+
+.logo-konq  {
+  font-family: 'impact', sans-serif;
+  font-size: 62pt;
+  font-weight: bold;
+  color: #99caff;
+  margin-top: -0.20in;
+  margin-bottom: 0;
+  margin-right: 0.2in;
+  text-align: left;
+}
+
+.title-konq {
+  font-family: 'impact', 'sans-serif';
+  font-size: 24pt;
+  font-weight: bold;
+  font-style: italic;
+  margin-right: 0.4in;
+  margin-top: -0.55in;
+  margin-bottom: 0;
+  text-align: left;
+}

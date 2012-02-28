@@ -1,0 +1,64 @@
+<html>
+<head>
+<link rel='stylesheet' type='text/css' href='../css/style.css'>
+<title>PKI and E-mail Encryption - A Brief Explanation</title>
+</head>
+<body>
+<center><h1>PKI and E-mail Encryption - A Brief Explanation</h2></center>
+
+PKI stands for <cite>Public Key Infrastructure</cite>. PKI is Information 
+Technology infrastructure that enables users of a basically unsecure public 
+network (such as the Internet) to securely and privately exchange data through 
+the use of a <a href=glossary.html#KEYS target=glossary>public and a private 
+cryptographic key pair</a> that is obtained and shared through a 
+<a href=glossary.html#CA target=glossary>trusted Authority</a>.
+
+<p>
+Public and private keys are like two halves of a single key.  PKI encryption
+algorithms are designed such that a public key is used to encrypt or
+"lock" a message, and only the complementary private key can "unlock" that
+message.
+Think of a bank vault or safe that can only be unlocked by two individuals 
+using two different but complementary keys. Neither of those keys can be used
+by itself to unlock the vault.
+
+<p>
+In practice, individuals wishing to exchange encrypted e-mail
+will agree to mutually trust one or more <a href=glossary.html#CA target=glossary>
+Certificate Authorities(CA)</a> by downloading and installing each trusted Authority's 
+<a href=glossary.html#ROOT-CERT target=glossary>root certificate</a> on their computers.
+They will each obtain their own personal 
+<a href=glossary.html#CERTIFICATE target=glossary>digital certificate</a>
+from a trusted Certificate Authority, and install them on their
+respective computers.
+Because they mutually trust the Certificate Authorities, they trust each other's
+digital certificates.  More specifically, they trust the 
+<a href=glossary.html#KEYS target=glossary>public keys</a> contained within
+their personal digital certificates which have been 
+<a href=glossary.html#SIGNATURE target=glossary>digitally signed</a> by a
+trusted Certificate Authority.
+They will then exchange their trusted public keys by sending each other 
+digitally signed e-mail messages.  Once each party has the other's public key,
+they may exchange trusted and encrypted messsages.  
+
+<p>
+Public key exchange and encryption is like exchanging notarized documents.
+One trusts a notarized document because a trusted third party, the Notary 
+Public, has signed it.  The Certificate Authority is the Notary Public, and
+the public keys are the documents.
+
+<p>
+Remember, having a personal digital certificate alone does <strong>not</strong> 
+give one the ability to send encrypted e-mail to others, but only allows the 
+<strong>receipt</strong> of encrypted e-mail.  PKI is a cooperative encryption
+standard.  Both parties who are exchanging encrypted messages must have
+personal digital certificates, they must trust the Certificate Authority 
+which issued the other persons certificate, and they must exchange
+public keys with each other, as described above.
+
+<p>
+The process of installing certificates and exchanging public keys is dependent
+upon the e-mail application one uses, and is beyond the scope of this document.
+
+</body>
+</html>

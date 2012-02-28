@@ -1,0 +1,183 @@
+HOME			= /var/www/phpki-store
+RANDFILE		= /var/www/phpki-store/CA/.rnd
+dir			= /var/www/phpki-store/CA
+certs			= /var/www/phpki-store/CA/certs
+crl_dir			= /var/www/phpki-store/CA/crl
+database		= /var/www/phpki-store/CA/index.txt
+new_certs_dir		= /var/www/phpki-store/CA/newcerts
+private_dir		= /var/www/phpki-store/CA/private
+serial			= /var/www/phpki-store/CA/serial
+certificate		= /var/www/phpki-store/CA/certs/cacert.pem
+crl			= /var/www/phpki-store/CA/crl/cacrl.pem
+private_key		= /var/www/phpki-store/CA/private/cakey.pem
+crl_extensions		= crl_ext
+default_days		= 365
+default_crl_days	= 30
+preserve	 	= no
+default_md	 	= md5
+
+[ ca ]
+default_ca		= email_cert
+
+[ root_cert ]
+x509_extensions        = root_ext
+default_days           = 3650
+policy                 = policy_supplied
+
+[ email_cert ]
+x509_extensions        = email_ext
+default_days           = 365
+policy                 = policy_supplied
+
+[ email_signing_cert ]
+x509_extensions        = email_signing_ext
+default_days           = 365
+policy                 = policy_supplied
+
+[ server_cert ]
+x509_extensions        = server_ext
+default_days           = 365
+policy                 = policy_supplied
+
+[ vpn_cert ]
+x509_extensions        = vpn_client_server_ext
+default_days           = 365
+policy                 = policy_supplied
+
+
+[ policy_supplied ]
+countryName            = supplied
+stateOrProvinceName    = supplied
+localityName           = supplied
+organizationName       = supplied
+organizationalUnitName = supplied
+commonName             = supplied
+emailAddress           = supplied
+
+[ root_ext ]
+basicConstraints       = CA:true
+keyUsage               = cRLSign, keyCertSign
+nsCertType             = sslCA, emailCA, objCA
+subjectKeyIdentifier   = hash
+subjectAltName         = email:copy
+crlDistributionPoints  = URI:http://www.somewhere.com/phpki/index.php?stage=dl_crl
+nsComment              = "PHPki/OpenSSL Generated Root Certificate Authority"
+#nsCaRevocationUrl	= ns_revoke_query.php?
+nsCaPolicyUrl          = http://www.somewhere.com/phpki/policy.html
+
+[ email_ext ]
+basicConstraints       = critical, CA:false
+keyUsage               = critical, nonRepudiation, digitalSignature, keyEncipherment
+extendedKeyUsage       = critical, emailProtection, clientAuth
+nsCertType             = critical, client, email
+subjectKeyIdentifier   = hash
+authorityKeyIdentifier = keyid:always, issuer:always
+subjectAltName         = email:copy
+issuerAltName          = issuer:copy
+crlDistributionPoints  = URI:http://www.somewhere.com/phpki/index.php?stage=dl_crl
+nsComment              = "PHPki/OpenSSL Generated Personal Certificate"
+nsBaseUrl              = http://www.somewhere.com/phpki/
+nsRevocationUrl	       = ns_revoke_query.php?
+#nsRenewalUrl          =
+nsCaPolicyUrl          = http://www.somewhere.com/phpki/policy.html
+#nsSslServerName       =
+
+[ email_signing_ext ]
+basicConstraints       = critical, CA:false
+keyUsage               = critical, nonRepudiation, digitalSignature, keyEncipherment
+extendedKeyUsage       = critical, emailProtection, clientAuth, codeSigning
+nsCertType             = critical, client, email
+subjectKeyIdentifier   = hash
+authorityKeyIdentifier = keyid:always, issuer:always
+subjectAltName         = email:copy
+issuerAltName          = issuer:copy
+crlDistributionPoints  = URI:http://www.somewhere.com/phpki/index.php?stage=dl_crl
+nsComment              = "PHPki/OpenSSL Generated Personal Certificate"
+nsBaseUrl              = http://www.somewhere.com/phpki/
+nsRevocationUrl	       = ns_revoke_query.php?
+#nsRenewalUrl          =
+nsCaPolicyUrl          = http://www.somewhere.com/phpki/policy.html
+#nsSslServerName       =
+
+
+[ server_ext ]
+basicConstraints        = CA:false
+keyUsage                = critical, digitalSignature, keyEncipherment
+nsCertType              = critical, server
+extendedKeyUsage        = critical, serverAuth
+subjectKeyIdentifier    = hash
+authorityKeyIdentifier  = keyid:always, issuer:always
+subjectAltName          = email:copy
+issuerAltName           = issuer:copy
+crlDistributionPoints  = URI:http://www.somewhere.com/phpki/index.php?stage=dl_crl
+nsComment		= "PHPki/OpenSSL Generated Secure Server Certificate"
+nsBaseUrl		= http://www.somewhere.com/phpki/
+nsRevocationUrl		= ns_revoke_query.php?
+nsCaPolicyUrl           = http://www.somewhere.com/phpki/policy.html
+
+[ vpn_client_ext ]
+basicConstraints        = critical, CA:false
+keyUsage                = critical, digitalSignature
+extendedKeyUsage        = critical, clientAuth
+nsCertType              = critical, client
+subjectKeyIdentifier    = hash
+authorityKeyIdentifier  = keyid:always, issuer:always
+subjectAltName          = email:copy
+
+[ vpn_server_ext ]
+basicConstraints        = critical, CA:false
+keyUsage                = critical, digitalSignature, keyEncipherment
+extendedKeyUsage        = critical, serverAuth
+nsCertType              = critical, server
+subjectKeyIdentifier    = hash
+authorityKeyIdentifier  = keyid:always, issuer:always
+subjectAltName          = email:copy
+
+[ vpn_client_server_ext ]
+basicConstraints        = critical, CA:false
+keyUsage                = critical, digitalSignature, keyEncipherment
+extendedKeyUsage        = critical, serverAuth, clientAuth
+nsCertType              = critical, server, client
+subjectKeyIdentifier    = hash
+authorityKeyIdentifier  = keyid:always, issuer:always
+subjectAltName          = email:copy
+
+[ crl_ext ]
+issuerAltName=issuer:copy
+authorityKeyIdentifier=keyid:always,issuer:always
+
+[ req ]
+default_bits		= 1024
+default_keyfile		= privkey.pem
+distinguished_name	= req_name
+string_mask		= nombstr
+req_extensions		= req_ext
+
+[ req_name]
+countryName			= Country Name (2 letter code)
+countryName_default		= US
+countryName_min			= 2
+countryName_max			= 2
+
+stateOrProvinceName		= State or Province Name (full name)
+stateOrProvinceName_default	= 
+
+localityName			= Locality Name (eg, city)
+localityName_default		= 
+
+0.organizationName		= Organization Name (eg, company)
+0.organizationName_default	=
+
+1.organizationName		= Second Organization Name (eg, company)
+1.organizationName_default	= 
+
+organizationalUnitName		= Organizational Unit Name (eg, section)
+organizationalUnitName_default	= 
+
+commonName			= Common Name (eg, YOUR name)
+
+emailAddress			= Email Address or Web URL
+
+[ req_ext ]
+basicConstraints = critical, CA:false
+
