@@ -1,3 +1,11 @@
+Reasons for forking
+===================
+
+After spending a fair amount of time looking for a basic, relatively full featured internal PKI solution, I came across PHPki on Sourceforge.  However, being that I don't enjoy using Sourceforge and that there are a number of improvements I wish to make to this solution, I have forked it into a Github repository.  Hopefully others may find this useful.
+
+
+Original README (0.83)
+======================
 NOTICE:
 This application is designed to be an easy to use "certificate factory"
 requiring minimum human intervention to administer.  It is intended for
