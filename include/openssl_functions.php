@@ -5,7 +5,7 @@
 // File name is placed in ./tmp with a random name. It lingers unless
 // removed manually.
 //
-function CA_create_cnf($country='',$province='',$locality='',$organization='',$unit='',$common_name='',$email='',$keysize=1024) {
+function CA_create_cnf($country='',$province='',$locality='',$organization='',$unit='',$common_name='',$email='',$keysize=4096) {
 	global $config, $PHPki_user;
 
 	$issuer = $PHPki_user;
@@ -27,7 +27,7 @@ crl_extentions	 = crl_ext
 default_days     = 365
 default_crl_days = 30
 preserve         = no
-default_md       = md5
+default_md       = sha512
 
 [ req ]
 default_bits        = $keysize
