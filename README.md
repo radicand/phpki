@@ -1,7 +1,23 @@
+About this fork
+===============
+
 Reasons for forking
-===================
+-------------------
 
 After spending a fair amount of time looking for a basic, relatively full featured internal PKI solution, I came across PHPki on Sourceforge.  However, being that I don't enjoy using Sourceforge and that there are a number of improvements I wish to make to this solution, I have forked it into a Github repository.  Hopefully others may find this useful.
+
+Main changes
+------------
+
+* Changed hash algorithm from MD5 to SHA
+
+
+Planned changes
+---------------
+
+* Remove usage of symlinks.
+* Strip out built-in password support -- this can be implemented by the webserver (htaccess) or a bolt-on like SimpleSAMLphp
+* Fix CRL subsystem (I found this to not be operational, have not yet investigated)
 
 
 Original README (0.83)
