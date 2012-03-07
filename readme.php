@@ -7,7 +7,7 @@ include('./include/common.php');
 printHeader('setup');
 print '<center><font color=red><h1>READ ME</h1></font></center>';
 print '<pre>';
-readfile('./README');
+readfile('./README.md');
 print '</pre>';
 printFooter();
 ?>

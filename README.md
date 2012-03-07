@@ -60,6 +60,7 @@ Unpack the PHPki tarball onto your web server. For example:
 	cp phpki.tar.gz /var/tmp
 	cd /var/www/html
 	tar -xzvf /var/tmp/phpki.tar.gz
+	chown <apache-user> -R phpki/
 
 To configure the certificate authority and create your root certificate,
 point your browser to where you unpacked PHPki. For example:
