@@ -1,3 +1,3 @@
 <?php
-define(PHPKI_VERSION, "0.83");
+define("PHPKI_VERSION", "0.83");
 ?>
