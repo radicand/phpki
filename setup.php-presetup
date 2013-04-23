@@ -109,7 +109,7 @@ case 'validate':
 	if ( $passwd and $passwd != $passwdv )
 		$er .= 'Password and password verification do not match.<br>';
 
-        if ( $email && ! is_email($contact) )
+        if ( $contact && ! is_email($contact) )
                 $er .= 'E-mail address ('. htvar($contact) . ') may be invalid.<br>';
 
 	if (strpos($store_dir,$_SERVER['DOCUMENT_ROOT']) === 0)
@@ -739,7 +739,7 @@ E-mail: <a href=mailto:someone@somewhere.com>someone@somewhere.com</a>&nbsp;&nbs
 	<td>
 	<strong>Password</strong> <font color=red>*</font><br>
 	This password will be used to protect your root certificate private
-	key.  <strong><font color=red>Do not lose or forget this password.</font></strong>
+	key.<br/>Can't contain single quote ! <strong><font color=red>Do not lose or forget this password.</font></strong>
 	</td>
 	<td><input type=password name=passwd value="<?=htvar($passwd)?>" size=30>&nbsp;&nbsp; Again <input type=password name=passwdv value="<?=htvar($passwdv)?>" size=30></td>
 	</tr>
