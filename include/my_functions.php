@@ -64,8 +64,8 @@ function upload($source, $destination, $content_type="application/octet-stream")
 function gpvar($v) {
 	global $_GET, $_POST;
     $x = "";
-	if ($_GET[$v])  $x = $_GET[$v];
-	if ($_POST[$v]) $x = $_POST[$v];
+	if (isset($_GET[$v]))  $x = $_GET[$v];
+	if (isset($_POST[$v])) $x = $_POST[$v];
 	if (get_magic_quotes_gpc()) $x = stripslashes($x);
 	return $x;
 }
