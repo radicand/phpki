@@ -2,7 +2,7 @@
 
 umask(0007);
 
-if ($_SERVER['PHP_AUTH_USER'])
+if (isset($_SERVER['PHP_AUTH_USER']))
 	$PHPki_user = md5($_SERVER['PHP_AUTH_USER']);
 else
 	$PHPki_user = md5('default');

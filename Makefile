@@ -22,7 +22,7 @@ distclean: clean
 	echo -e '<?php\nheader("Location: ./../index.php");\n?>' > ca/index.php
 
 	echo '<?php' > config.php
-	echo 'define(PHPKI_VERSION, "$(VERSION)");' >> config.php
+	echo 'define("PHPKI_VERSION", "$(VERSION)");' >> config.php
 	echo '?>' >> config.php
 
 	rm -f index.php setup.php
