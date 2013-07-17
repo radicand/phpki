@@ -36,11 +36,11 @@ function printHeader($withmenu="default") {
 	?>
 	<html>
 	<head>
-	<title>PHPki: <?=$title?> </title>
-	<link rel="stylesheet" type="text/css" href="<?=$style_css?>">
+	<title>PHPki: <?php echo $title?> </title>
+	<link rel="stylesheet" type="text/css" href="<?php echo $style_css?>">
 	</head>
 	<body>
-	<?
+	<?php
 
 	if (isKonq()) { 
 		$logoclass  = 'logo-konq';
@@ -54,9 +54,9 @@ function printHeader($withmenu="default") {
 	}
 
 	?>
-	<div class=<?=$logoclass?>>PHPki</div>
-	<div class=<?=$titleclass?>><?=$title?></div>
-	<?
+	<div class=<?php echo $logoclass?>>PHPki</div>
+	<div class=<?php echo $titleclass?>><?php echo $title?></div>
+	<?php
 
 	switch ($withmenu) {
 	case false:
@@ -64,12 +64,12 @@ function printHeader($withmenu="default") {
 		break;
 	case 'setup':
 		?>
-		<div class=<?=$menuclass?>>
-		<a class=<?=$menuclass?> href=readme.php>ReadMe</a>
-		<a class=<?=$menuclass?> href=setup.php>Setup</a>
-		<a class=<?=$menuclass?> href=about.php target=_about>About</a>
+		<div class=<?php echo $menuclass?>>
+		<a class=<?php echo $menuclass?> href=readme.php>ReadMe</a>
+		<a class=<?php echo $menuclass?> href=setup.php>Setup</a>
+		<a class=<?php echo $menuclass?> href=about.php target=_about>About</a>
 		</div>
-		<?
+		<?php
 		break;
 	case 'public':
 		print "<div class=$menuclass>";
@@ -86,8 +86,8 @@ function printHeader($withmenu="default") {
 			print '<a class='.$menuclass.' style="color: red" href=policy.html target=help>Policy</a>';
 		}
 		?>
-		<a class=<?=$menuclass?> href=help.php target=_help>Help</a>
-		<a class=<?=$menuclass?> href=about.php target=_about>About</a>
+		<a class=<?php echo $menuclass?> href=help.php target=_help>Help</a>
+		<a class=<?php echo $menuclass?> href=about.php target=_about>About</a>
 		</div>
 		<?
 		break;
@@ -107,13 +107,13 @@ function printHeader($withmenu="default") {
 			print '<a class='.$menuclass.' style="color: red" href=../policy.html target=help>Policy</a>';
 		}
 		?>
-		<a class=<?=$menuclass?> href=../help.php target=_help>Help</a>
-		<a class=<?=$menuclass?> href=../about.php target=_about>About</a>
+		<a class=<?php echo $menuclass?> href=../help.php target=_help>Help</a>
+		<a class=<?php echo $menuclass?> href=../about.php target=_about>About</a>
 		</div>
-		<?
+		<?php
 	}
 
-	?><hr width=99% align=left color=#99caff><?
+	?><hr width=99% align=left color=#99caff><?php
 }
 
 
@@ -121,10 +121,10 @@ function printFooter() {
 	?>
 	<br>
 	<hr width=99% align=left color=#99caff>
-	<center style='margin-top: -5px; font-size: 8pt'>PHPki v<?=PHPKI_VERSION?> - Copyright 2003 - William E. Roadcap</center><br>
+	<center style='margin-top: -5px; font-size: 8pt'>PHPki v<?php echo PHPKI_VERSION?> - Copyright 2003 - William E. Roadcap</center><br>
 	</body>
 	</html>
-	<?
+	<?php
 }
 
 ?>
