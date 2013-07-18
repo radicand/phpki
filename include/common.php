@@ -43,14 +43,14 @@ function printHeader($withmenu="default") {
 	<?php
 
 	if (isKonq()) { 
-		$logoclass  = 'logo-konq';
-		$titleclass = 'title-konq';
-		$menuclass  = 'headermenu-konq';
+		$logoclass  = '"logo-konq"';
+		$titleclass = '"title-konq"';
+		$menuclass  = '"headermenu-konq"';
 	}
 	else {
-		$logoclass  = 'logo-ie';
-		$titleclass = 'title-ie';
-		$menuclass  = 'headermenu-ie';
+		$logoclass  = '"logo-ie"';
+		$titleclass = '"title-ie"';
+		$menuclass  = '"headermenu-ie"';
 	}
 
 	?>
