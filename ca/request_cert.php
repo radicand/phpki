@@ -293,8 +293,8 @@ default:
 	<tr>
 	<td>Key Size </td>
 	<td><select name=keysize>
-	<?
-	for ( $i = 512 ; $i < 4096 ; $i+= 512 ) {
+	<?php
+	for ( $i = 512 ; $i <= 4096 ; $i+= 512 ) {
 		print "<option value=$i " . ($keysize == $i ? "selected='selected'" : "") . " >$i bits</option>\n" ;
 	}
 
