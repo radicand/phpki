@@ -49,15 +49,15 @@ case search:
 		?>
 		<center>
 		<h2>Nothing Found</h2>
-		<form action=<?=$PHP_SELF?> method=post name=form>
-		<input type=hidden name=search value="<?=htvar($search)?>">
-		<input type=hidden name=show_valid value="<?=htvar($show_valid)?>">
-		<input type=hidden name=show_revoked value="<?=htvar($show_revoked)?>">
-		<input type=hidden name=show_expired value="<?=htvar($show_expired)?>">
+		<form action=<?php echo $PHP_SELF?> method=post name=form>
+		<input type=hidden name=search value="<?php echo htvar($search)?>">
+		<input type=hidden name=show_valid value="<?php echo htvar($show_valid)?>">
+		<input type=hidden name=show_revoked value="<?php echo htvar($show_revoked)?>">
+		<input type=hidden name=show_expired value="<?php echo htvar($show_expired)?>">
 		<input type=submit name=submit value="Go Back">
 		</form>
 		</center>
-		<?
+		<?php
 		printFooter();
 		break;
 	}
@@ -83,21 +83,21 @@ case search:
 
 		?>
 		<tr style="font-size: 11px;">
-		<td style="color: <?=$stcolor[$rec['status']]?>; font-weight: bold"><?=htvar($rec['status'])?></td>
-		<td style="white-space: nowrap"><?=htvar($rec['issued'])?></td>
-		<td style="white-space: nowrap"><?=htvar($rec['expires'])?></td>
-		<td><?=htvar($rec[common_name])?></td>
-		<td style="white-space: nowrap"><a href="mailto:<?=htvar($rec['common_name']).' <'.htvar($rec['email']).'>"'?>><?=htvar($rec['email'])?></a></td>
-		<td><?=htvar($rec['organization'])?></td>
-		<td><?=htvar($rec['unit'])?></td>
-		<td><?=htvar($rec['locality'])?></td>
-		<td><?=htvar($rec['province'])?></td>
-		<td><a href=<?=$PHP_SELF?>?stage=display&serial=<?=htvar($rec['serial'])?> target=_certdisp><img src=images/display.png alt="Display" title="Display the certificate in excruciating detail"></a>
-		<?
+		<td style="color: <?php echo $stcolor[$rec['status']]?>; font-weight: bold"><?php echo htvar($rec['status'])?></td>
+		<td style="white-space: nowrap"><?php echo htvar($rec['issued'])?></td>
+		<td style="white-space: nowrap"><?php echo htvar($rec['expires'])?></td>
+		<td><?php echo htvar($rec[common_name])?></td>
+		<td style="white-space: nowrap"><a href="mailto:<?php echo htvar($rec['common_name']).' <'.htvar($rec['email']).'>"'?>><?php echo htvar($rec['email'])?></a></td>
+		<td><?php echo htvar($rec['organization'])?></td>
+		<td><?php echo htvar($rec['unit'])?></td>
+		<td><?php echo htvar($rec['locality'])?></td>
+		<td><?php echo htvar($rec['province'])?></td>
+		<td><a href=<?php echo $PHP_SELF?>?stage=display&serial=<?php echo htvar($rec['serial'])?> target=_certdisp><img src=images/display.png alt="Display" title="Display the certificate in excruciating detail"></a>
+		<?php
 		if ($rec['status'] != 'Revoked') {
 			?>
-			<a href=<?=$PHP_SELF?>?stage=download&serial=<?=htvar($rec['serial'])?>><img src=images/download.png alt="Download" title="Download the certificate so that you may send encrypted e-mail"></a>
-			<?
+			<a href=<?php echo $PHP_SELF?>?stage=download&serial=<?php echo htvar($rec['serial'])?>><img src=images/download.png alt="Download" title="Download the certificate so that you may send encrypted e-mail"></a>
+			<?php
 		}
 		print '</td></tr>';
 	}
@@ -105,14 +105,14 @@ case search:
 	?>
 	</table>
 
-	<form action=<?=$PHP_SELF?> method=post name=form>
+	<form action=<?php echo $PHP_SELF?> method=post name=form>
 	<input type=submit name=submit value="Another Search">
-	<input type=hidden name=search value="<?=htvar($search)?>">
-	<input type=hidden name=show_valid value="<?=htvar($show_valid)?>">
-	<input type=hidden name=show_revoked value="<?=htvar($show_revoked)?>">
-	<input type=hidden name=show_expired value="<?=htvar($show_expired)?>">
+	<input type=hidden name=search value="<?php echo htvar($search)?>">
+	<input type=hidden name=show_valid value="<?php echo htvar($show_valid)?>">
+	<input type=hidden name=show_revoked value="<?php echo htvar($show_revoked)?>">
+	<input type=hidden name=show_expired value="<?php echo htvar($show_expired)?>">
 	</form>
-	<?
+	<?php
 
 	printFooter();
 	break;
@@ -123,17 +123,17 @@ default:
 	?>
 	<body onLoad="self.focus();document.search.search.focus()">
 	<center><h2>Certificate Search</h2>
-	<form action=<?=$PHP_SELF?> method=post name=search>
-	<input type=text name=search value="<?=htvar($search)?>" maxlength=60 size=40>
+	<form action=<?php echo $PHP_SELF?> method=post name=search>
+	<input type=text name=search value="<?php echo htvar($search)?>" maxlength=60 size=40>
 	<input type=submit name=submit value="Find It!"><br>
-	<input type=checkbox name=show_valid value="V" <?=($show_valid?'checked':'')?>>Valid
-	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type=checkbox name=show_revoked value="R" <?=($show_revoked?'checked':'')?>>Revoked
-	&nbsp;&nbsp;&nbsp;&nbsp;<input type=checkbox name=show_expired value="E" <?=($show_expired?'checked':'')?>>Expired
+	<input type=checkbox name=show_valid value="V" <?php echo ($show_valid?'checked':'')?>>Valid
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type=checkbox name=show_revoked value="R" <?php echo ($show_revoked?'checked':'')?>>Revoked
+	&nbsp;&nbsp;&nbsp;&nbsp;<input type=checkbox name=show_expired value="E" <?php echo ($show_expired?'checked':'')?>>Expired
 	<input type=hidden name=stage value=search>
 	</form></center>
 
 	<br><br>
-	<?
+	<?php
 	printFooter();
 }
 
