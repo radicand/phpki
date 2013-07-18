@@ -34,7 +34,7 @@ function printHeader($withmenu="default") {
         header("Pragma: no-cache");
 
 	?>
-	<html>
+	<!DOCTYPE html>
 	<head>
 	<title>PHPki: <?php echo $title?> </title>
 	<link rel="stylesheet" type="text/css" href="<?php echo $style_css?>">
@@ -65,9 +65,9 @@ function printHeader($withmenu="default") {
 	case 'setup':
 		?>
 		<div class=<?php echo $menuclass?>>
-		<a class=<?php echo $menuclass?> href=readme.php>ReadMe</a>
-		<a class=<?php echo $menuclass?> href=setup.php>Setup</a>
-		<a class=<?php echo $menuclass?> href=about.php target=_about>About</a>
+		<a class=<?php echo $menuclass?> href="readme.php">ReadMe</a>
+		<a class=<?php echo $menuclass?> href="setup.php">Setup</a>
+		<a class=<?php echo $menuclass?> href="about.php" target="_about">About</a>
 		</div>
 		<?php
 		break;
@@ -75,19 +75,19 @@ function printHeader($withmenu="default") {
 		print "<div class=$menuclass>";
 
 		if (DEMO)  {
-			print "<a class=$menuclass href=index.php>Public</a>";
-			print "<a class=$menuclass href=ca/ >Manage</a>";
+			print "<a class=$menuclass href=\"index.php\">Public</a>";
+			print "<a class=$menuclass href=\"ca/\">Manage</a>";
 		}
 		else {
-			print "<a class=$menuclass href=index.php>Menu</a>";
+			print "<a class=$menuclass href=\"index.php\">Menu</a>";
 		}
 
 		if (file_exists('policy.html')) {
-			print '<a class='.$menuclass.' style="color: red" href=policy.html target=help>Policy</a>';
+			print '<a class='.$menuclass.' style="color: red;" href="policy.html" target="help">Policy</a>';
 		}
 		?>
-		<a class=<?php echo $menuclass?> href=help.php target=_help>Help</a>
-		<a class=<?php echo $menuclass?> href=about.php target=_about>About</a>
+		<a class=<?php echo $menuclass?> href="help.php" target="_help">Help</a>
+		<a class=<?php echo $menuclass?> href="about.php" target="_about">About</a>
 		</div>
 		<?php
 		break;
@@ -96,32 +96,32 @@ function printHeader($withmenu="default") {
 		print "<div class=$menuclass>";
 
 		if (DEMO)  {
-			print "<a class=$menuclass href=../index.php>Public</a>";
-			print "<a class=$menuclass href=../ca/index.php>Manage</a>";
+			print "<a class=$menuclass href=\"../index.php\">Public</a>";
+			print "<a class=$menuclass href=\"../ca/index.php\">Manage</a>";
 		}
 		else {
-			print "<a class=$menuclass href=index.php>Menu</a>";
+			print "<a class=$menuclass href=\"index.php\">Menu</a>";
 		}
 
 		if (file_exists('../policy.html')) {
-			print '<a class='.$menuclass.' style="color: red" href=../policy.html target=help>Policy</a>';
+			print '<a class='.$menuclass.' style="color: red;" href=\"../policy.html\" target=\"help\">Policy</a>';
 		}
 		?>
-		<a class=<?php echo $menuclass?> href=../help.php target=_help>Help</a>
-		<a class=<?php echo $menuclass?> href=../about.php target=_about>About</a>
+		<a class=<?php echo $menuclass?> href="../help.php" target="_help">Help</a>
+		<a class=<?php echo $menuclass?> href="../about.php" target="_about">About</a>
 		</div>
 		<?php
 	}
 
-	?><hr width=99% align=left color=#99caff><?php
+	?><hr style="width:99%; align:left; color:#99caff;" /><?php
 }
 
 
 function printFooter() {
 	?>
-	<br>
-	<hr width=99% align=left color=#99caff>
-	<center style='margin-top: -5px; font-size: 8pt'>PHPki v<?php echo PHPKI_VERSION?> - Copyright 2003 - William E. Roadcap</center><br>
+	<br />
+	<hr style="width:99%; align:left; color:#99caff;" />
+	<p style="margin-top: -5px; font-size: 8pt; text-align:center;">PHPki v<?php echo PHPKI_VERSION?> - Copyright 2003 - William E. Roadcap</p>
 	</body>
 	</html>
 	<?php
