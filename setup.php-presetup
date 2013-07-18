@@ -140,12 +140,12 @@ case 'validate':
                 printHeader('setup');
                 ?>
 
-                <form action='<?=$PHP_SELF?>' method=post>
+                <form action='<?php echo $PHP_SELF?>' method=post>
                 <input type=submit name=Submit value='Go Back'>
-                <font color=#ff0000><?=$er?></font>
+                <font color=#ff0000><?php echo $er?></font>
                 <br><input type=submit name=Submit2 value='Go Back'>
 
-                <?
+                <?php
                 print $hidden_fields;
                 print "</form>";
 
@@ -630,7 +630,7 @@ EOS;
 	<input type=submit name=submit value="Proceed To The PHPki Main Menu">
 	</form>
 	</center>
-	<?
+	<?php
 	printFooter();
 	break;
 
@@ -683,7 +683,7 @@ E-mail: <a href=mailto:someone@somewhere.com>someone@somewhere.com</a>&nbsp;&nbs
 
 	printHeader('setup');
 	?>
-	<form action=<?=$PHP_SELF?> method=post>
+	<form action=<?php echo $PHP_SELF?> method=post>
 	<center><h2>Certificate Authority Initial Setup</h2></center>
 	<table width=99%>
 	<tr>
@@ -692,12 +692,12 @@ E-mail: <a href=mailto:someone@somewhere.com>someone@somewhere.com</a>&nbsp;&nbs
 
 	<tr>
 	<td width=35%><strong>Organization</strong> <font color=red>*</font></td>
-	<td><input type=text name=organization value="<?=htvar($organization)?>" maxlength=60 size=50></td>
+	<td><input type=text name=organization value="<?php echo htvar($organization)?>" maxlength=60 size=50></td>
 	</tr>
 
 	<tr>
 	<td><strong>Department/Unit</strong> <font color=red>*</font></td>
-	<td><input type=text name=unit value="<?=htvar($unit)?>" maxlength=60 size=30></td>
+	<td><input type=text name=unit value="<?php echo htvar($unit)?>" maxlength=60 size=30></td>
 	</tr>
 
 	<tr>
@@ -707,7 +707,7 @@ E-mail: <a href=mailto:someone@somewhere.com>someone@somewhere.com</a>&nbsp;&nbs
 	e-mail clients as the <cite>Issued By:</cite> text.  This is usually
 	the full name of your certificate authority (i.e. ACME Certificate Authority).
 	</td>
-	<td><input type=text name=common_name value="<?=htvar($common_name)?>" maxlength=60 size=60></td>
+	<td><input type=text name=common_name value="<?php echo htvar($common_name)?>" maxlength=60 size=60></td>
 	</tr>
 
 	<tr>
@@ -717,22 +717,22 @@ E-mail: <a href=mailto:someone@somewhere.com>someone@somewhere.com</a>&nbsp;&nbs
 	regarding your certificate authority and the certificates you issue.
 	</td>
 	
-	<td><input type=text name=contact value="<?=htvar($contact)?>" maxlength=60 size=30></td>
+	<td><input type=text name=contact value="<?php echo htvar($contact)?>" maxlength=60 size=30></td>
 	</tr>
 
 	<tr>
 	<td><strong>Locality</strong> <font color=red>*</font></td>
-	<td><input type=text name=locality value="<?=htvar($locality)?>" maxlength=60 size=30></td>
+	<td><input type=text name=locality value="<?php echo htvar($locality)?>" maxlength=60 size=30></td>
 	</tr>
 
 	<tr>
 	<td><strong>State/Province</strong> <font color=red>*</font></td>
-	<td><input type=text name=province value="<?=htvar($province)?>" maxlength=60 size=20></td>
+	<td><input type=text name=province value="<?php echo htvar($province)?>" maxlength=60 size=20></td>
 	</tr>
 
 	<tr>
 	<td><strong>Country</strong> <font color=red>*</font></td>
-	<td><input type=text name=country value="<?=htvar($country)?>" maxlength=2 size=2></td>
+	<td><input type=text name=country value="<?php echo htvar($country)?>" maxlength=2 size=2></td>
 	</tr>
 
 	<tr>
@@ -741,7 +741,7 @@ E-mail: <a href=mailto:someone@somewhere.com>someone@somewhere.com</a>&nbsp;&nbs
 	This password will be used to protect your root certificate private
 	key.<br/>Can't contain single quote ! <strong><font color=red>Do not lose or forget this password.</font></strong>
 	</td>
-	<td><input type=password name=passwd value="<?=htvar($passwd)?>" size=30>&nbsp;&nbsp; Again <input type=password name=passwdv value="<?=htvar($passwdv)?>" size=30></td>
+	<td><input type=password name=passwd value="<?php echo htvar($passwd)?>" size=30>&nbsp;&nbsp; Again <input type=password name=passwdv value="<?php echo htvar($passwdv)?>" size=30></td>
 	</tr>
 
 	<tr>
@@ -751,7 +751,7 @@ E-mail: <a href=mailto:someone@somewhere.com>someone@somewhere.com</a>&nbsp;&nbs
 	</td>
 	<td><select name=expiry>
 
-	<?
+	<?php
         for ( $i = 5 ; $i < 20 ; $i+=5 ) {
                 print "<option value=$i " . ($expiry == $i ? "selected='selected
 '" : "") . " >$i Years</option>\n" ;
@@ -768,7 +768,7 @@ E-mail: <a href=mailto:someone@somewhere.com>someone@somewhere.com</a>&nbsp;&nbs
 	</td>
 	<td><select name=keysize>
 
-	<?
+	<?php
         for ( $i = 512 ; $i <= 4096 ; $i+=512 ) {
                 print "<option value=$i " . ($keysize == $i ? "selected='selected
 '" : "") . " >$i bits</option>\n" ;
@@ -787,7 +787,7 @@ E-mail: <a href=mailto:someone@somewhere.com>someone@somewhere.com</a>&nbsp;&nbs
 	by your CA, for informational purposes.
 	</td>
 	<td>
-	<input type=text name=base_url value="<?=htvar($base_url)?>" size=50>
+	<input type=text name=base_url value="<?php echo htvar($base_url)?>" size=50>
 	</td>
 	</tr>
 
@@ -803,11 +803,11 @@ E-mail: <a href=mailto:someone@somewhere.com>someone@somewhere.com</a>&nbsp;&nbs
 	<td width=35%>
 	<strong>Storage Directory <font color=red>*</font></strong><br>
 	Enter the location where PHPki will store its files.  This should be a directory where
-	the web server has full read/write access (chown <?=$uname?> ; chmod 700), and is preferably 
-	outside of DOCUMENT_ROOT (<?=$_SERVER['DOCUMENT_ROOT']?>).  You may have to manually create the directory before completing this form.
+	the web server has full read/write access (chown <?php echo $uname?> ; chmod 700), and is preferably 
+	outside of DOCUMENT_ROOT (<?php echo $_SERVER['DOCUMENT_ROOT']?>).  You may have to manually create the directory before completing this form.
 	</td>
 	<td>
-	<input type=text name=store_dir value="<?=htvar($store_dir)?>" size=35>
+	<input type=text name=store_dir value="<?php echo htvar($store_dir)?>" size=35>
 	</td>
 	</tr>
 
@@ -817,7 +817,7 @@ E-mail: <a href=mailto:someone@somewhere.com>someone@somewhere.com</a>&nbsp;&nbs
 	Enter the location of your OpenSSL binary.  The default is usually ok.
 	</td>
 	<td>
-	<input type=text name=openssl_bin value="<?=htvar($openssl_bin)?>" size=35>
+	<input type=text name=openssl_bin value="<?php echo htvar($openssl_bin)?>" size=35>
 	</td>
 	</tr>
 
@@ -827,7 +827,7 @@ E-mail: <a href=mailto:someone@somewhere.com>someone@somewhere.com</a>&nbsp;&nbs
 	Enter the location of your PHPki user password file.  The default is usually ok.
 	</td>
 	<td>
-	<input type=text name=passwd_file value="<?=htvar($passwd_file)?>" size=35>
+	<input type=text name=passwd_file value="<?php echo htvar($passwd_file)?>" size=35>
 	</td>
 	</tr>
 
@@ -841,7 +841,7 @@ E-mail: <a href=mailto:someone@somewhere.com>someone@somewhere.com</a>&nbsp;&nbs
 	<cite>"acme_caroot.crt"</cite>.
 	</td>
 	<td>
-	<input type=text name=ca_prefix value="<?=htvar($ca_prefix)?>" maxlength=10 size=10>
+	<input type=text name=ca_prefix value="<?php echo htvar($ca_prefix)?>" maxlength=10 size=10>
 	</td>
 	</tr>
 
@@ -852,7 +852,7 @@ E-mail: <a href=mailto:someone@somewhere.com>someone@somewhere.com</a>&nbsp;&nbs
 	top of every page.
 	</td>
 	<td>
-	<input type=text name=header_title value="<?=htvar($header_title)?>" maxlength=40 size=40>
+	<input type=text name=header_title value="<?php echo htvar($header_title)?>" maxlength=40 size=40>
 	</td>
 	</tr>
 
@@ -865,7 +865,7 @@ E-mail: <a href=mailto:someone@somewhere.com>someone@somewhere.com</a>&nbsp;&nbs
 	tags to improve presentation.
 	</td>
 	<td>
-	<textarea name=getting_help cols=50 rows=15><?=htvar($getting_help)?></textarea>
+	<textarea name=getting_help cols=50 rows=15><?php echo htvar($getting_help)?></textarea>
 	</td>
 	</tr>
 	</table>
@@ -876,7 +876,7 @@ E-mail: <a href=mailto:someone@somewhere.com>someone@somewhere.com</a>&nbsp;&nbs
 	<input type=hidden name=stage value='validate'>
 	</form>
 
-	<?
+	<?php
 	printFooter();
 	break;
 }

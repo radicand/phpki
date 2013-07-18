@@ -88,12 +88,12 @@ case 'validate':
 		printHeader();
 		?>
 
-		<form action='<?=$PHP_SELF?>' method=post>
+		<form action='<?php echo $PHP_SELF?>' method=post>
 		<input type=submit name=submit value='Go Back'>
-		<font color=#ff0000><?=$er?></font>
+		<font color=#ff0000><?php echo $er?></font>
 		<br><input type=submit name=submit value='Go Back'>
 		
-		<?
+		<?php
 		print $hidden_fields;
 		print "</form>";
 
@@ -122,7 +122,7 @@ case 'confirm':
     	</td>
 
     	<td>
-    	<?
+    	<?php
 	print htvar($common_name) . '<br>';
     	print htvar($email) . '<br>';
     	print htvar($organization) . '<br>';
@@ -139,14 +139,14 @@ case 'confirm':
   	</tr></table>
 
 	<h4>Are you sure?</h4>
-	<p><form action='<?=$PHP_SELF?>' method=post>
-	<?= $hidden_fields ?>
+	<p><form action='<?php echo $PHP_SELF?>' method=post>
+	<?php echo  $hidden_fields ?>
 	<input type=hidden name=form_stage value=final>
   	<input type=submit name=submit value='Yes!  Create and Download' >&nbsp;
   	<input type=submit name=submit value='Go Back'>
 	</form>
 
-	<?
+	<?php
 	printFooter();
 
 	# Save user's defaults 
@@ -174,19 +174,19 @@ case 'final':
 	                	printHeader();
 
 				?>
-				<form action=<?=$PHP_SELF?> method=post>
+				<form action=<?php echo $PHP_SELF?> method=post>
                 		<font color=#ff0000>
                 		<h2>There was an error creating your certificate.</h2></font><br>
 	                	<blockquote>
 	                	<h3>Debug Info:</h3>
-				<pre><?=$errtxt?></pre>
+				<pre><?php echo $errtxt?></pre>
 				</blockquote>
 				<p>
-				<?=$hidden_fields?>
+				<?php echo $hidden_fields?>
 				<input type=submit name=submit value=Back>
 				<p>
 				</form>
-				<?
+				<?php
 
 				printFooter();
 				break;
@@ -231,51 +231,51 @@ default:
 	printHeader();
 	?>
 	<body onLoad="self.focus();document.request.common_name.focus()">
-	<form action="<?=$PHP_SELF?>" method=post name=request>
+	<form action="<?php echo $PHP_SELF?>" method=post name=request>
 	<table width=99%>
 	<th colspan=2><h3>Certificate Request Form</h3></th>
 
 	<tr>
 	<td width=30%>Common Name<br>(i.e. User real name or computer hostname) </td>
-	<td><input type=text name=common_name value="<?= htvar($common_name)?>" size=50 maxlength=60></td>
+	<td><input type=text name=common_name value="<?php echo  htvar($common_name)?>" size=50 maxlength=60></td>
 	</tr>
 
 	<tr>
 	<td>E-mail Address </td>
-	<td><input type=text name=email value="<?=htvar($email)?>" size=50 maxlength=60></td>
+	<td><input type=text name=email value="<?php echo htvar($email)?>" size=50 maxlength=60></td>
 	</tr>
 
 	<tr>
 	<td>Organization (Company/Agency)</td>
-	<td><input type=text name=organization value="<?=htvar($organization)?>" size=60 maxlength=60></td>
+	<td><input type=text name=organization value="<?php echo htvar($organization)?>" size=60 maxlength=60></td>
 	</tr>
 
 	<tr>
-	<td>Department/Unit </td><td><input type=text name=unit value="<?= htvar($unit) ?>" size=40 maxlength=60></td>
+	<td>Department/Unit </td><td><input type=text name=unit value="<?php echo  htvar($unit) ?>" size=40 maxlength=60></td>
 	</tr>
 
 	<tr>
-	<td>Locality (City/County)</td><td><input type=text name=locality value="<?= htvar($locality) ?>" size=30 maxlength=30></td>
+	<td>Locality (City/County)</td><td><input type=text name=locality value="<?php echo  htvar($locality) ?>" size=30 maxlength=30></td>
 	</tr>
 
 	<tr>
-	<td>State/Province</td><td><input type=text name=province value="<?= htvar($province) ?>" size=30 maxlength=30></td>
+	<td>State/Province</td><td><input type=text name=province value="<?php echo  htvar($province) ?>" size=30 maxlength=30></td>
 	</tr>
 
 	<tr>
 	<td>Country</td>
-	<td><input type=text name=country value="<?= htvar($country) ?>" size=2 maxlength=2></td>
+	<td><input type=text name=country value="<?php echo  htvar($country) ?>" size=2 maxlength=2></td>
 	</tr>
 
 	<tr>
 	<td>Certificate Password </td>
-	<td><input type=password name=passwd value="<?= htvar($passwd) ?>" size=30>&nbsp;&nbsp; Again <input type=password name=passwdv  value="<?= htvar($passwdv) ?>" size=30></td>
+	<td><input type=password name=passwd value="<?php echo  htvar($passwd) ?>" size=30>&nbsp;&nbsp; Again <input type=password name=passwdv  value="<?php echo  htvar($passwdv) ?>" size=30></td>
 	</tr>
 
 	<tr>
 	<td>Certificate Life </td>
 	<td><select name=expiry>
-	<?
+	<?php
 
 	print "<option value=0.083 " . ($expiry == 1 ? "selected='selected'" : "") . " >1 Month</option>\n" ;
 	print "<option value=0.25 " . ($expiry == 1 ? "selected='selected'" : "") . " >3 Months</option>\n" ;
@@ -293,8 +293,8 @@ default:
 	<tr>
 	<td>Key Size </td>
 	<td><select name=keysize>
-	<?
-	for ( $i = 512 ; $i < 4096 ; $i+= 512 ) {
+	<?php
+	for ( $i = 512 ; $i <= 4096 ; $i+= 512 ) {
 		print "<option value=$i " . ($keysize == $i ? "selected='selected'" : "") . " >$i bits</option>\n" ;
 	}
 
@@ -305,7 +305,7 @@ default:
 	<tr>
 	<td>Certificate Use: </td>
 	<td><select name=cert_type>
-	<?
+	<?php
 	print '<option value="email" '.($cert_type=='email'?'selected':'').'>E-mail, SSL Client</option>';
 	print '<option value="email_signing" '.($cert_type=='email_signing'?'selected':'').'>E-mail, SSL Client, Code Signing</option>';
 	print '<option value="server" '.($cert_type=='server'?'selected':'').'>SSL Server</option>';
@@ -322,7 +322,7 @@ default:
 	</tr>
 	</table>
 	</form>
-	<?
+	<?php
 
 	printFooter();
 }

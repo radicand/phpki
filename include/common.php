@@ -34,29 +34,29 @@ function printHeader($withmenu="default") {
         header("Pragma: no-cache");
 
 	?>
-	<html>
+	<!DOCTYPE html>
 	<head>
-	<title>PHPki: <?=$title?> </title>
-	<link rel="stylesheet" type="text/css" href="<?=$style_css?>">
+	<title>PHPki: <?php echo $title?> </title>
+	<link rel="stylesheet" type="text/css" href="<?php echo $style_css?>">
 	</head>
 	<body>
-	<?
+	<?php
 
 	if (isKonq()) { 
-		$logoclass  = 'logo-konq';
-		$titleclass = 'title-konq';
-		$menuclass  = 'headermenu-konq';
+		$logoclass  = '"logo-konq"';
+		$titleclass = '"title-konq"';
+		$menuclass  = '"headermenu-konq"';
 	}
 	else {
-		$logoclass  = 'logo-ie';
-		$titleclass = 'title-ie';
-		$menuclass  = 'headermenu-ie';
+		$logoclass  = '"logo-ie"';
+		$titleclass = '"title-ie"';
+		$menuclass  = '"headermenu-ie"';
 	}
 
 	?>
-	<div class=<?=$logoclass?>>PHPki</div>
-	<div class=<?=$titleclass?>><?=$title?></div>
-	<?
+	<div class=<?php echo $logoclass?>>PHPki</div>
+	<div class=<?php echo $titleclass?>><?php echo $title?></div>
+	<?php
 
 	switch ($withmenu) {
 	case false:
@@ -64,67 +64,67 @@ function printHeader($withmenu="default") {
 		break;
 	case 'setup':
 		?>
-		<div class=<?=$menuclass?>>
-		<a class=<?=$menuclass?> href=readme.php>ReadMe</a>
-		<a class=<?=$menuclass?> href=setup.php>Setup</a>
-		<a class=<?=$menuclass?> href=about.php target=_about>About</a>
+		<div class=<?php echo $menuclass?>>
+		<a class=<?php echo $menuclass?> href="readme.php">ReadMe</a>
+		<a class=<?php echo $menuclass?> href="setup.php">Setup</a>
+		<a class=<?php echo $menuclass?> href="about.php" target="_about">About</a>
 		</div>
-		<?
+		<?php
 		break;
 	case 'public':
 		print "<div class=$menuclass>";
 
 		if (DEMO)  {
-			print "<a class=$menuclass href=index.php>Public</a>";
-			print "<a class=$menuclass href=ca/ >Manage</a>";
+			print "<a class=$menuclass href=\"index.php\">Public</a>";
+			print "<a class=$menuclass href=\"ca/\">Manage</a>";
 		}
 		else {
-			print "<a class=$menuclass href=index.php>Menu</a>";
+			print "<a class=$menuclass href=\"index.php\">Menu</a>";
 		}
 
 		if (file_exists('policy.html')) {
-			print '<a class='.$menuclass.' style="color: red" href=policy.html target=help>Policy</a>';
+			print '<a class='.$menuclass.' style="color: red;" href="policy.html" target="help">Policy</a>';
 		}
 		?>
-		<a class=<?=$menuclass?> href=help.php target=_help>Help</a>
-		<a class=<?=$menuclass?> href=about.php target=_about>About</a>
+		<a class=<?php echo $menuclass?> href="help.php" target="_help">Help</a>
+		<a class=<?php echo $menuclass?> href="about.php" target="_about">About</a>
 		</div>
-		<?
+		<?php
 		break;
 	case 'ca':
 	default:
 		print "<div class=$menuclass>";
 
 		if (DEMO)  {
-			print "<a class=$menuclass href=../index.php>Public</a>";
-			print "<a class=$menuclass href=../ca/index.php>Manage</a>";
+			print "<a class=$menuclass href=\"../index.php\">Public</a>";
+			print "<a class=$menuclass href=\"../ca/index.php\">Manage</a>";
 		}
 		else {
-			print "<a class=$menuclass href=index.php>Menu</a>";
+			print "<a class=$menuclass href=\"index.php\">Menu</a>";
 		}
 
 		if (file_exists('../policy.html')) {
-			print '<a class='.$menuclass.' style="color: red" href=../policy.html target=help>Policy</a>';
+			print '<a class='.$menuclass.' style="color: red;" href=\"../policy.html\" target=\"help\">Policy</a>';
 		}
 		?>
-		<a class=<?=$menuclass?> href=../help.php target=_help>Help</a>
-		<a class=<?=$menuclass?> href=../about.php target=_about>About</a>
+		<a class=<?php echo $menuclass?> href="../help.php" target="_help">Help</a>
+		<a class=<?php echo $menuclass?> href="../about.php" target="_about">About</a>
 		</div>
-		<?
+		<?php
 	}
 
-	?><hr width=99% align=left color=#99caff><?
+	?><hr style="width:99%; align:left; color:#99caff;" /><?php
 }
 
 
 function printFooter() {
 	?>
-	<br>
-	<hr width=99% align=left color=#99caff>
-	<center style='margin-top: -5px; font-size: 8pt'>PHPki v<?=PHPKI_VERSION?> - Copyright 2003 - William E. Roadcap</center><br>
+	<br />
+	<hr style="width:99%; align:left; color:#99caff;" />
+	<p style="margin-top: -5px; font-size: 8pt; text-align:center;">PHPki v<?php echo PHPKI_VERSION?> - Copyright 2003 - William E. Roadcap</p>
 	</body>
 	</html>
-	<?
+	<?php
 }
 
 ?>
