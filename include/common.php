@@ -89,7 +89,7 @@ function printHeader($withmenu="default") {
 		<a class=<?php echo $menuclass?> href=help.php target=_help>Help</a>
 		<a class=<?php echo $menuclass?> href=about.php target=_about>About</a>
 		</div>
-		<?
+		<?php
 		break;
 	case 'ca':
 	default:
