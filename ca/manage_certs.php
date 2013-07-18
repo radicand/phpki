@@ -42,7 +42,7 @@ $qstr_sort   = "sortfield=$sortfield&ascdec=$ascdec";
 switch ($stage) {
 case 'goaway':
 	printHeader(false);
-	?> <p><center><h1><font color=red>YOU ARE A VERY BAD BOY!</font></h2></center> <?
+	?> <p><center><h1><font color=red>YOU ARE A VERY BAD BOY!</font></h2></center> <?php
 	break;
 
 case 'display':
@@ -50,8 +50,8 @@ case 'display':
 
 	?>
        	<center><h2>Certificate Details</h2></center>
-	<center><font color=#0000AA><h3>(#<?=$serial?>)<br><?=htvar(CA_cert_cname($serial).' <'.CA_cert_email($serial).'>')?> </h3></font></center>
-	<?
+	<center><font color=#0000AA><h3>(#<?php echo $serial?>)<br><?php echo htvar(CA_cert_cname($serial).' <'.CA_cert_email($serial).'>')?> </h3></font></center>
+	<?php
 
 	if ($revoke_date = CAdb_is_revoked($serial))
 		print '<center><font color=red><h2>REVOKED '.$revoke_date.'</h2></font></center>';
@@ -65,9 +65,9 @@ case 'dl-confirm':
 	$rec = CAdb_get_entry($serial);
 
 	?>
-	<h3>You are about to download the <font color=red>PRIVATE</font> certificate key for <?=$rec['common_name'].' &lt;'.$rec['email'].'&gt; '?></h3>
+	<h3>You are about to download the <font color=red>PRIVATE</font> certificate key for <?php echo $rec['common_name'].' &lt;'.$rec['email'].'&gt; '?></h3>
 	<h3><font color=red>DO NOT DISTRIBUTE THIS FILE TO THE PUBLIC!</font></h3>
-	<form action="<?=$PHP_SELF.'?stage=download&serial='.$serial.'&'.$qstr_sort.'&'.$qstr_filter?>" method=post>
+	<form action="<?php echo $PHP_SELF.'?stage=download&serial='.$serial.'&'.$qstr_sort.'&'.$qstr_filter?>" method=post>
 	<strong>File type: </strong>
 	<td><select name=dl_type>
 	<option value="PKCS#12">PKCS#12 Bundle</option>
@@ -81,7 +81,7 @@ case 'dl-confirm':
 	&nbsp; or &nbsp;
 	<input type=submit name=submit value="Go Back">
 	</form>
-	<?
+	<?php
 
 	break;
 
@@ -130,7 +130,7 @@ case 'revoke-form':
        	State/Province<br>
        	Country<br>
        	</td>
-	<?
+	<?php
 
 	print '
        	<td>
@@ -169,13 +169,13 @@ case 'revoke':
 .</h2></font><br>
 		<blockquote>
 		<h3>Debug Info:</h3>
-		<pre><?=$errtxt?></pre>
+		<pre><?php echo $errtxt?></pre>
 		</blockquote>
 		<p>
 		<input type=submit name=submit value=Back>
 		<p>
 		</form>
-		<?
+		<?php
 	}
 	else
 		header("Location: ${PHP_SELF}?$qstr_sort&$qstr_filter");
@@ -206,51 +206,51 @@ case 'renew-form':
 	?>
 	<body onLoad="self.focus();document.form.passwd.focus()">
 
-	<form action="<?=$PHP_SELF.'?'.$qstr_sort.'&'.$qstr_filter?>" method=post name=form>
+	<form action="<?php echo $PHP_SELF.'?'.$qstr_sort.'&'.$qstr_filter?>" method=post name=form>
 	<table width=99%>
 	<th colspan=2><h3>Certificate Renewal Form</h3></th>
 
 	<tr>
 	<td width=25%>Common Name </td>
-	<td><input type=text name=common_name value="<?= htvar($common_name)?>" size=50 maxlength=60 disabled></td>
+	<td><input type=text name=common_name value="<?php echo  htvar($common_name)?>" size=50 maxlength=60 disabled></td>
 	</tr>
 
 	<tr>
 	<td>E-mail Address </td>
-	<td><input type=text name=email value="<?=htvar($email)?>" size=50 maxlength=60 disabled></td>
+	<td><input type=text name=email value="<?php echo htvar($email)?>" size=50 maxlength=60 disabled></td>
 	</tr>
 
 	<tr>
 	<td>Organization </td>
-	<td><input type=text name=organization value="<?=htvar($organization)?>" size=60 maxlength=60 disabled></td>
+	<td><input type=text name=organization value="<?php echo htvar($organization)?>" size=60 maxlength=60 disabled></td>
 	</tr>
 
 	<tr>
-	<td>Department/Unit </td><td><input type=text name=unit value="<?= htvar($unit) ?>" size=40 maxlength=60 disabled></td>
+	<td>Department/Unit </td><td><input type=text name=unit value="<?php echo  htvar($unit) ?>" size=40 maxlength=60 disabled></td>
 	</tr>
 
 	<tr>
-	<td>Locality</td><td><input type=text name=locality value="<?= htvar($locality) ?>" size=30 maxlength=30 disabled></td>
+	<td>Locality</td><td><input type=text name=locality value="<?php echo  htvar($locality) ?>" size=30 maxlength=30 disabled></td>
 	</tr>
 
 	<tr>
-	<td>State/Province</td><td><input type=text name=province value="<?= htvar($province) ?>" size=30 maxlength=30 disabled></td>
+	<td>State/Province</td><td><input type=text name=province value="<?php echo  htvar($province) ?>" size=30 maxlength=30 disabled></td>
 	</tr>
 
 	<tr>
 	<td>Country</td>
-	<td><input type=text name=country value="<?= htvar($country) ?>" size=2 maxlength=2 disabled></td>
+	<td><input type=text name=country value="<?php echo  htvar($country) ?>" size=2 maxlength=2 disabled></td>
 	</tr>
 
 	<tr>
 	<td>Certificate Password </td>
-	<td><input type=password name=passwd value="<?= htvar($passwd) ?>" size=30></td>
+	<td><input type=password name=passwd value="<?php echo  htvar($passwd) ?>" size=30></td>
 	</tr>
 
 	<tr>
 	<td>Certificate Life </td>
 	<td><select name=expiry>
-	<?
+	<?php
 
 	print "<option value=0.083 " . ($expiry == 1 ? "selected='selected'" : "") . " >1 Month</option>\n" ;
 	print "<option value=0.25 " . ($expiry == 1 ? "selected='selected'" : "") . " >3 Months</option>\n" ;
@@ -271,12 +271,12 @@ case 'renew-form':
 	</td>
 	<td>
 	<input type=hidden name=stage value=renew>
-	<input type=hidden name=serial value=<?=$serial?>>
+	<input type=hidden name=serial value=<?php echo $serial?>>
 	</td>
 	</tr>
 	</table>
 	</form>
-	<?
+	<?php
 
 	printFooter();
 	break;
@@ -296,13 +296,13 @@ case 'renew':
 .</h2></font><br>
 		<blockquote>
 		<h3>Debug Info:</h3>
-		<pre><?=$errtxt?></pre>
+		<pre><?php echo $errtxt?></pre>
 		</blockquote>
 		<p>
 		<input type=submit name=submit value=Back>
 		<p>
 		</form>
-		<?
+		<?php
 	}
 	else {
 		header("Location: $PHP_SELF?$qstr_sort&$qstr_filter");
@@ -319,17 +319,17 @@ default:
 	<table>
 	<tr><th colspan=8><big>CERTIFICATE MANAGEMENT CONTROL PANEL</big></th></tr>
 	<tr><td colspan=8><center>
-	<form action="<?="$PHP_SELF?$qstr_sort"?>" method=get name=filter>
-        Search: <input type=text name=search value="<?=htvar($search)?>" style="font-size: 11px;" maxlength=60 size=30>
-        &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<input type=checkbox name=show_valid value="V" <?=($show_valid?'checked'
+	<form action="<?php echo "$PHP_SELF?$qstr_sort"?>" method=get name=filter>
+        Search: <input type=text name=search value="<?php echo htvar($search)?>" style="font-size: 11px;" maxlength=60 size=30>
+        &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<input type=checkbox name=show_valid value="V" <?php echo ($show_valid?'checked'
 :'')?>>Valid
-        &nbsp&nbsp<input type=checkbox name=show_revoked value="R" <?=($show_revoked?'checked':'')?>>Revoked
-        &nbsp&nbsp<input type=checkbox name=show_expired value="E" <?=($show_expired?'checked':'')?>>Expired
+        &nbsp&nbsp<input type=checkbox name=show_revoked value="R" <?php echo ($show_revoked?'checked':'')?>>Revoked
+        &nbsp&nbsp<input type=checkbox name=show_expired value="E" <?php echo ($show_expired?'checked':'')?>>Expired
         &nbsp&nbsp&nbsp&nbsp&nbsp<input type=submit name=submit value="Apply Filter" style="font-size: 11px;">
         </form>
 	</center></td>
 	</tr>
-	<?
+	<?php
 
 	if (! $sortfield) {
 		$sortfield = 'email' ;
