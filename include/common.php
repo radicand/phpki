@@ -38,6 +38,23 @@ function printHeader($withmenu="default") {
 	<head>
 	<title>PHPki: <?php echo $title?> </title>
 	<link rel="stylesheet" type="text/css" href="<?php echo $style_css?>">
+	<script type="text/javascript" language="javascript">
+
+	function setVisibility(rowName, show) {
+        // Tabellenzelle ermitteln
+ 
+        var actualVisibility=document.getElementById(rowName).style.visibility;
+ 
+        if(show==false) {
+                document.getElementById(rowName).style.visibility = "hidden";
+                document.getElementById(rowName).style.display = "none";
+        } else {
+                document.getElementById(rowName).style.visibility = "visible";
+                document.getElementById(rowName).style.display = "";
+        }
+	}
+
+	</script>
 	</head>
 	<body>
 	<?php
