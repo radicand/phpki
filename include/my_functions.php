@@ -186,6 +186,30 @@ function is_email($v) {
 }
 
 #
+# Returns True if the given string is a IP address
+#
+function is_ip( $ip = null ) {
+    if( !$ip or strlen(trim($ip)) == 0){
+        return false;
+    }
+    $ip=trim($ip);
+    if(preg_match("/^[0-9]{1,3}(.[0-9]{1,3}){3}$/",$ip)) {
+        foreach(explode(".", $ip) as $block)
+            if($block<0 || $block>255 )
+                return false;
+        return true;
+    }
+    return false;
+}
+
+#
+# Returns True if the given string is a valid FQDN
+#
+function is_fqdn($FQDN) {
+    return (!empty($FQDN) && preg_match('/(?=^.{1,254}$)(^(?:(?!\d|-)[a-z0-9\-]{1,63}(?<!-)\.)+(?:[a-z]{2,})$)/i', $FQDN) > 0);
+}
+
+#
 # Checks regexp in every element of an array, returns TRUE as soon
 # as a match is found.
 #
