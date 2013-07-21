@@ -25,7 +25,8 @@ $passwdv      = gpvar('passwdv');
 $expiry       = gpvar('expiry');
 $keysize      = gpvar('keysize');
 $cert_type    = gpvar('cert_type');
-
+$dns_names    = gpvar('dns_names');
+$ip_addr      = gpvar('ip_addr');
 
 # To repopulate form after error.
 $hidden_fields = '
@@ -41,6 +42,8 @@ $hidden_fields = '
     <input type=hidden name=expiry value="' . htvar($expiry) . '">
     <input type=hidden name=keysize value="' . htvar($keysize) . '">
     <input type=hidden name=cert_type value="' . htvar($cert_type) . '">
+    <input type=hidden name=dns_names value="' . htvar($dns_names) . '">
+    <input type=hidden name=ip_addr value="' . htvar($ip_addr) . '">
 ';
 
 
@@ -72,9 +75,20 @@ case 'validate':
 	if ( $email && ! is_email($email) )
 		$er .= 'E-mail address ('. htvar($email) . ') may be invalid.<br>';
 
+	$ip_ar=explode("\n", $ip_addr);
+	foreach ($ip_ar as $value){
+		if ( $value && ! is_ip($value) )
+			$er .= 'IP address ('. htvar($value) . ') may be invalid.<br>';
+	}
+
+	$dns_n=explode("\n", $dns_names);
+	foreach ($dns_n as $value){
+		if ( $value && ! is_fqdn(trim($value)) )
+			$er .= 'DNS Name ('. htvar($value) . ') may be invalid.<br>';
+	}
+
 	if ( $er )
 		$er = '<h2>ERROR(S) IN FORM:</h2><h4><blockquote>' . $er . '</blockquote></h4>';
-
 
 	if ($email && ($serial = CAdb_in($email,$common_name))) { 	
 		$er = '';
@@ -119,6 +133,8 @@ case 'confirm':
 	Certificate Life<br>
 	Key Size<br>
 	Certificate Use<br>
+	IP Addresses<br>
+	DNS Alt Names<br>
     	</td>
 
     	<td>
@@ -133,6 +149,8 @@ case 'confirm':
 	print htvar($expiry). ' Year'.($expiry == 1 ? '' : 's').'<br>';
 	print htvar($keysize). ' bits<br>';
 	print htvar($cert_type). '<br>';
+    print htvar($dns_names). '<br>';
+    print htvar($ip_addr). '<br>';
 	?>
     	</td>
 
@@ -168,7 +186,7 @@ case 'confirm':
 case 'final':
 	if ($submit == "Yes!  Create and Download") {
 		if (! $serial = CAdb_in($email,$common_name)) {
-			list($ret,$errtxt) = CA_create_cert($cert_type,$country, $province, $locality, $organization, $unit, $common_name, $email, $expiry, $passwd, $keysize);
+			list($ret,$errtxt) = CA_create_cert($cert_type,$country, $province, $locality, $organization, $unit, $common_name, $email, $expiry, $passwd, $keysize,$dns_names,$ip_addr);
 
 			if (! $ret) {
 	                	printHeader();
@@ -227,6 +245,8 @@ default:
 	if (! $expiry)        $expiry = 1;
 	if (! $keysize)       $keysize = 1024;
 	if (! $cert_type)     $cert_type = 'email';
+	if (! $dns_names)     $dns_names = "";
+	if (! $ip_addr)       $ip_addr = "";
 
 	printHeader();
 	?>
@@ -236,44 +256,44 @@ default:
 	<th colspan=2><h3>Certificate Request Form</h3></th>
 
 	<tr>
-	<td width=30%>Common Name<br>(i.e. User real name or computer hostname) </td>
+	<td width=30%>Common Name<font color=red size=3>*</font><br>(i.e. User real name or computer hostname) </td>
 	<td><input type=text name=common_name value="<?php echo  htvar($common_name)?>" size=50 maxlength=60></td>
 	</tr>
 
 	<tr>
-	<td>E-mail Address </td>
+	<td>E-mail Address <font color=red size=3>*</font></td>
 	<td><input type=text name=email value="<?php echo htvar($email)?>" size=50 maxlength=60></td>
 	</tr>
 
 	<tr>
-	<td>Organization (Company/Agency)</td>
+	<td>Organization (Company/Agency)<font color=red size=3>*</font></td>
 	<td><input type=text name=organization value="<?php echo htvar($organization)?>" size=60 maxlength=60></td>
 	</tr>
 
 	<tr>
-	<td>Department/Unit </td><td><input type=text name=unit value="<?php echo  htvar($unit) ?>" size=40 maxlength=60></td>
+	<td>Department/Unit<font color=red size=3>*</font> </td><td><input type=text name=unit value="<?php echo  htvar($unit) ?>" size=40 maxlength=60></td>
 	</tr>
 
 	<tr>
-	<td>Locality (City/County)</td><td><input type=text name=locality value="<?php echo  htvar($locality) ?>" size=30 maxlength=30></td>
+	<td>Locality (City/County)<font color=red size=3>*</font></td><td><input type=text name=locality value="<?php echo  htvar($locality) ?>" size=30 maxlength=30></td>
 	</tr>
 
 	<tr>
-	<td>State/Province</td><td><input type=text name=province value="<?php echo  htvar($province) ?>" size=30 maxlength=30></td>
+	<td>State/Province<font color=red size=3>*</font></td><td><input type=text name=province value="<?php echo  htvar($province) ?>" size=30 maxlength=30></td>
 	</tr>
 
 	<tr>
-	<td>Country</td>
+	<td>Country<font color=red size=3>*</font></td>
 	<td><input type=text name=country value="<?php echo  htvar($country) ?>" size=2 maxlength=2></td>
 	</tr>
 
 	<tr>
-	<td>Certificate Password </td>
+	<td>Certificate Password<font color=red size=3>*</font> </td>
 	<td><input type=password name=passwd value="<?php echo  htvar($passwd) ?>" size=30>&nbsp;&nbsp; Again <input type=password name=passwdv  value="<?php echo  htvar($passwdv) ?>" size=30></td>
 	</tr>
 
 	<tr>
-	<td>Certificate Life </td>
+	<td>Certificate Life<font color=red size=3>*</font> </td>
 	<td><select name=expiry>
 	<?php
 
@@ -291,7 +311,7 @@ default:
 	</tr>
 
 	<tr>
-	<td>Key Size </td>
+	<td>Key Size<font color=red size=3>*</font> </td>
 	<td><select name=keysize>
 	<?php
 	for ( $i = 512 ; $i <= 4096 ; $i+= 512 ) {
@@ -303,8 +323,9 @@ default:
 	</tr>
 
 	<tr>
-	<td>Certificate Use: </td>
-	<td><select name=cert_type>
+	<td>Certificate Use:<font color=red size=3>*</font> </td>
+	<td><select name=cert_type onchange="if (this.value=='server') 
+        {setVisibility('testrow1',true);setVisibility('testrow2',true);} else {setVisibility('testrow1',false);setVisibility('testrow2',false);}">
 	<?php
 	print '<option value="email" '.($cert_type=='email'?'selected':'').'>E-mail, SSL Client</option>';
 	print '<option value="email_signing" '.($cert_type=='email_signing'?'selected':'').'>E-mail, SSL Client, Code Signing</option>';
@@ -317,8 +338,16 @@ default:
 	</select></td>
 	</tr>
 
+	<tr id="testrow2" name="testrow2" style="visibility:hidden;display:none;">
+	<td>Alternative DNS Names<br>(only one per Line)</td><td><textarea name=dns_names cols=30 rows=5><?= htvar($dns_names) ?></textarea></td>
+	</tr>
+
+	<tr id="testrow1" name="testrow1" style="visibility:hidden;display:none;">
+	<td>IP's<br>(only one per Line)</td><td><textarea name=ip_addr cols=30 rows=5><?= htvar($ip_addr) ?></textarea></td>
+	</tr>
+	
 	<tr>
-	<td><center><input type=submit name=submit value='Submit Request'></center><input type=hidden name=form_stage value='validate'></td><td><font color=red size=3>* All fields are required</td>
+	<td><center><input type=submit name=submit value='Submit Request'></center><input type=hidden name=form_stage value='validate'></td><td><font color=red size=3>* Fields are required</td>
 	</tr>
 	</table>
 	</form>
