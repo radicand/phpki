@@ -5,7 +5,7 @@
 // File name is placed in ./tmp with a random name. It lingers unless
 // removed manually.
 //
-function CA_create_cnf($country='',$province='',$locality='',$organization='',$unit='',$common_name='',$email='',$keysize=4096,$dns_names='',$ip_addr='') {
+function CA_create_cnf($country='',$province='',$locality='',$organization='',$unit='',$common_name='',$email='',$keysize=4096,$dns_names='',$ip_addr='',$serial='') {
 	global $config, $PHPki_user;
 
 	$issuer = $PHPki_user;
@@ -18,20 +18,23 @@ function CA_create_cnf($country='',$province='',$locality='',$organization='',$u
 		$dns_n=explode("\n", $dns_names);
 		$count_dns  = $count_dns + 1;
 		$alt_names .= "DNS.$count_dns = $common_name\n";
-		
 		foreach ($dns_n as $value) {
+			if (! $value == '') {
 				$count_dns  = $count_dns + 1;
 				$alt_names .= "DNS.$count_dns = ".trim($value)."\n";
+			}
 		}
 	}
 	
 	if (! $ip_addr == '') {
 		$ip_ar=explode("\n", $ip_addr);
 		foreach ($ip_ar as $value) {
+			if (! $value == '') {
 				$count_dns  = $count_dns + 1;
 				$count_ip   = $count_ip + 1;
 				$alt_names .= "DNS.$count_dns = ".trim($value)."\n";
 				$alt_names .= "IP.$count_ip = ".trim($value)."\n";
+			}
 		}
 	}
 
@@ -44,7 +47,7 @@ function CA_create_cnf($country='',$province='',$locality='',$organization='',$u
 	$cnf_contents = "
 HOME             = $config[home_dir] 
 RANDFILE         = $config[random]
-dir	             = $config[ca_dir]
+dir	         = $config[ca_dir]
 certs            = $config[cert_dir]
 crl_dir	         = $config[crl_dir]
 database         = $config[index]
@@ -135,7 +138,7 @@ subjectKeyIdentifier   = hash
 subjectAltName         = email:copy
 crlDistributionPoints  = URI:$config[base_url]index.php?stage=dl_crl
 nsComment              = \"PHPki/OpenSSL Generated Root Certificate\"
-#nsCaRevocationUrl      = $config[base_url]ns_revoke_query.php?$config[serial]
+#nsCaRevocationUrl     = $config[base_url]ns_revoke_query.php?$serial
 nsCaPolicyUrl          = $config[base_url]policy.html
 
 [ email_ext ]
@@ -150,7 +153,7 @@ issuerAltName          = issuer:copy
 crlDistributionPoints  = URI:$config[base_url]index.php?stage=dl_crl
 nsComment              = \"PHPki/OpenSSL Generated Personal Certificate\"
 nsBaseUrl              = $config[base_url]
-nsRevocationUrl        = $config[base_url]ns_revoke_query.php?$config[serial]
+nsRevocationUrl        = $config[base_url]ns_revoke_query.php?$serial
 nsCaPolicyUrl          = $config[base_url]policy.html
 
 [ email_signing_ext ]
@@ -165,7 +168,7 @@ issuerAltName          = issuer:copy
 crlDistributionPoints  = URI:$config[base_url]index.php?stage=dl_crl
 nsComment              = \"PHPki/OpenSSL Generated Personal Certificate\"
 nsBaseUrl              = $config[base_url]
-nsRevocationUrl        = $config[base_url]ns_revoke_query.php?$config[serial]
+nsRevocationUrl        = $config[base_url]ns_revoke_query.php?$serial
 nsCaPolicyUrl          = $config[base_url]policy.html
 
 [ server_ext ]
@@ -180,7 +183,7 @@ issuerAltName           = issuer:copy
 crlDistributionPoints   = URI:$config[base_url]index.php?stage=dl_crl
 nsComment               = \"PHPki/OpenSSL Generated Server Certificate\"
 nsBaseUrl               = $config[base_url]
-nsRevocationUrl         = $config[base_url]ns_revoke_query.php?$config[serial]
+nsRevocationUrl         = $config[base_url]ns_revoke_query.php?$serial
 nsCaPolicyUrl           = $config[base_url]policy.html
 
 [ time_stamping_ext ]
@@ -194,7 +197,7 @@ issuerAltName          = issuer:copy
 crlDistributionPoints   = URI:$config[base_url]index.php?stage=dl_crl
 nsComment              = \"PHPki/OpenSSL Generated Time Stamping Certificate\"
 nsBaseUrl              = $config[base_url]
-nsRevocationUrl        = $config[base_url]ns_revoke_query.php?$config[serial]
+nsRevocationUrl        = $config[base_url]ns_revoke_query.php?$serial
 
 [ vpn_client_ext ]
 basicConstraints        = critical, CA:false
@@ -519,11 +522,11 @@ function CA_create_cert($cert_type='email',$country,$province,$locality,$organiz
 
 	$expiry_days = round($expiry * 365.25, 0);
 
-	$cnf_file = CA_create_cnf($country,$province,$locality,$organization,$unit,$common_name,$email,$keysize,$dns_names,$ip_addr);
+	$cnf_file = CA_create_cnf($country,$province,$locality,$organization,$unit,$common_name,$email,$keysize,$dns_names,$ip_addr,$serial);
 
 	# Escape certain dangerous characters in user input
 	$email         = escshellcmd($email);
-	$_passwd        = escshellarg($passwd);
+	$_passwd       = escshellarg($passwd);
 	$friendly_name = escshellarg($common_name);
 	$extensions    = escshellarg($cert_type.'_ext');
 	
