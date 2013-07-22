@@ -31,7 +31,7 @@ function upload($source, $destination, $content_type="application/octet-stream")
 #	header("Cache-Control: no-store, no-cache, must-revalidate");
 #	header("Cache-Control: post-check=0, pre-check=0", false);
 #	header("Pragma: no-cache");
-        header("Content-Type: $content_type");
+    header("Content-Type: $content_type");
 
 	if (is_array($source)) {
 		$fsize = 0;
@@ -90,10 +90,9 @@ function csort($array, $column, $ascdec=SORT_ASC){
 #
 function htvar($v, $strip=false) {
 	if ($strip) 
-		return  htmlentities(stripslashes($v));
+		return  htmlentities(stripslashes($v), 0, "UTF-8");
 	else
-		return  htmlentities($v);
-	
+		return  htmlentities($v, 0, "UTF-8");
 }
 
 
