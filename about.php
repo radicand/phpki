@@ -30,7 +30,7 @@ License provided this page and all copyright notices remain completely intact.
 <center><h4>Copyright: 2003, William E. Roadcap</h4>
 <form>
 <textarea name=gpl cols=80 rows=15 readonly>
-<?
+<?php
 readfile("./LICENSE.TXT");
 ?>
 </textarea>
@@ -38,7 +38,7 @@ readfile("./LICENSE.TXT");
 </center>
 <p>
 
-<?
+<?php
 printFooter();
 ?>
 
