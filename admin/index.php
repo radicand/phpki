@@ -18,10 +18,10 @@ case 'list_users':
 
 	?>
 	</pre>
-	<form action=<?=$PHP_SELF?> method=post>
+	<form action=<?php echo $PHP_SELF?> method=post>
 	<input type=submit name=submit value="Back to Menu">
 	</form>
-	<?
+	<?php
 	printFooter(false);
 	break;
 
@@ -29,17 +29,17 @@ case 'add_user_form';
 	printHeader('admin');
 	?>
 	<body onLoad="self.focus();document.form.login.focus()">
-	<form action=<?=$PHP_SELF?> method=post name=form>
+	<form action=<?php echo $PHP_SELF?> method=post name=form>
 	<table>
 	<th colspan=2><h3>Add User or Change Password</h3></th>
-	<tr><td>User ID</td><td><input type=text name=login value="<?=htvar($login)?>" maxlength=15 size=15></td></tr>
+	<tr><td>User ID</td><td><input type=text name=login value="<?php echo htvar($login)?>" maxlength=15 size=15></td></tr>
 	<tr><td>Password </td><td><input type=password name=passwd value=''  size=20></td></tr>
 	<tr><td>Verify Password </td><td><input type=password name=passwdv value='' size=20></td></tr>
 	</table>
 	<input type=hidden name=stage value=add_user>
 	<input type=submit name=submit value='Submit'>
 	</form>
-	<?
+	<?php
 	break;
 
 case 'add_user':
@@ -49,12 +49,12 @@ case 'add_user':
 
 		?>
 		<p><center>
-		<form action=<?=$PHP_SELF?> method=post>
+		<form action=<?php echo $PHP_SELF?> method=post>
 		<input type=hidden name=stage value=add_user_form>
-		<input type=hidden name=login value="<?=htvar($login)?>">
+		<input type=hidden name=login value="<?php echo htvar($login)?>">
 		<input type=submit name=submit value=Back>
 		</form></center>
-		<?
+		<?php
 	}
 	else {
 		$pwdfile = escapeshellarg($config['passwd_file']);
@@ -65,10 +65,10 @@ case 'add_user':
 		system("htpasswd -bm $pwdfile $login $passwd 2>&1")
 		?>
 		<p>
-		<form action=<?=$PHP_SELF?> method=post>
+		<form action=<?php echo $PHP_SELF?> method=post>
 		<input type=submit name=submit value="Back to Menu">
 		</form>
-		<?
+		<?php
 	}
 	printFooter();
 	break;
@@ -77,15 +77,15 @@ case 'del_user_form';
 	printHeader('admin');
 	?>
 	<body onLoad="self.focus();document.form.login.focus()">
-	<form action=<?=$PHP_SELF?> method=post name=form>
+	<form action=<?php echo $PHP_SELF?> method=post name=form>
 	<table>
 	<th colspan=2><h3>Remove User</h3></th>
-	<tr><td>User ID</td><td><input type=text name=login value="<?=htvar($login)?>" maxlength=15 size=15></td></tr>
+	<tr><td>User ID</td><td><input type=text name=login value="<?php echo htvar($login)?>" maxlength=15 size=15></td></tr>
 	</table>
 	<input type=hidden name=stage value=del_user>
 	<input type=submit name=submit value='Submit'>
 	</form>
-	<?
+	<?php
 	printFooter();
 	break;
 case 'del_user':
@@ -98,10 +98,10 @@ case 'del_user':
 	system("htpasswd -D $pwdfile $login 2>&1")
 	?>
 	<p>
-	<form action=<?=$PHP_SELF?> method=post>
+	<form action=<?php echo $PHP_SELF?> method=post>
 	<input type=submit name=submit value="Back to Menu">
 	</form>
-	<?
+	<?php
 	printFooter();
 	break;
 
@@ -113,14 +113,14 @@ default:
 	<center>
 	<table class=menu><th class=menu>SYSADMIN MENU</th>
 	<tr><td class=menu style="padding-left: 1em;"><table>
-	<tr><td class=menu-pad><a href=<?=$PHP_SELF?>?stage=add_user_form>Add User or Change Password</a></td></tr>
-	<tr><td class=menu-pad><a href=<?=$PHP_SELF?>?stage=del_user_form>Remove User</a></td></tr>
-	<tr><td class=menu-pad><a href=<?=$PHP_SELF?>?stage=list_users>List Password File Contents</a></td></tr>
+	<tr><td class=menu-pad><a href=<?php echo $PHP_SELF?>?stage=add_user_form>Add User or Change Password</a></td></tr>
+	<tr><td class=menu-pad><a href=<?php echo $PHP_SELF?>?stage=del_user_form>Remove User</a></td></tr>
+	<tr><td class=menu-pad><a href=<?php echo $PHP_SELF?>?stage=list_users>List Password File Contents</a></td></tr>
 	</table></td></tr>
 	</table>
 	</center>
 	<br><br>
-	<?
+	<?php
 	printFooter();
 }
 
