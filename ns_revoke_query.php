@@ -14,13 +14,17 @@
 # application/x-netscape-revocation containing a single character
 # '1' if the certificate is revoked, '0' if it is valid.
 #
-include('./config.in.php');
+include('./config.php');
 include(STORE_DIR.'/config/config.php');
 
 $serial = escapeshellcmd(trim($_SERVER['QUERY_STRING']));
-header("Content-type: application/x-netscape-revocation");
-$regexp = "^R\t.*\t.*\t$serial\t.*\t.*$";
-if (exec("egrep '$regexp' ca/$config[index]"))
+#header("Content-type: application/x-netscape-revocation");
+
+# old Reg Ex doesnt work, new should do the work
+#$regexp = "^R\t.*\t.*\t$serial\t.*\t.*$";
+$regexp = "^R.*$serial.*$";
+
+if (exec("egrep '$regexp' $config[index]"))
 	print '1';
 else
 	print '0';
