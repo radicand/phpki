@@ -5,7 +5,7 @@
 // File name is placed in ./tmp with a random name. It lingers unless
 // removed manually.
 //
-function CA_create_cnf($country='',$province='',$locality='',$organization='',$unit='',$common_name='',$email='',$keysize=4096,$dns_names='',$ip_addr='',$serial='') {
+function CA_create_cnf($country='',$province='',$locality='',$organization='',$unit='',$common_name='',$email='',$keysize=2048,$dns_names='',$ip_addr='',$serial='') {
 	global $config, $PHPki_user;
 
 	$issuer = $PHPki_user;
@@ -136,10 +136,10 @@ keyUsage               = cRLSign, keyCertSign
 nsCertType             = sslCA, emailCA, objCA
 subjectKeyIdentifier   = hash
 subjectAltName         = email:copy
-crlDistributionPoints  = URI:$config[base_url]index.php?stage=dl_crl
-nsComment              = \"PHPki/OpenSSL Generated Root Certificate\"
-#nsCaRevocationUrl     = $config[base_url]ns_revoke_query.php?$serial
-nsCaPolicyUrl          = $config[base_url]policy.html
+crlDistributionPoints  = URI:$config[base_url]$config[crl_distrib]
+nsComment              = $config[comment_root]
+#nsCaRevocationUrl     =
+nsCaPolicyUrl          = $config[base_url]$config[policy_url]
 
 [ email_ext ]
 basicConstraints       = critical, CA:false
@@ -150,11 +150,11 @@ subjectKeyIdentifier   = hash
 authorityKeyIdentifier = keyid:always, issuer:always
 subjectAltName         = email:copy
 issuerAltName          = issuer:copy
-crlDistributionPoints  = URI:$config[base_url]index.php?stage=dl_crl
-nsComment              = \"PHPki/OpenSSL Generated Personal Certificate\"
+crlDistributionPoints  = URI:$config[base_url]$config[crl_distrib]
+nsComment              = $config[comment_email]
 nsBaseUrl              = $config[base_url]
-nsRevocationUrl        = $config[base_url]ns_revoke_query.php?$serial
-nsCaPolicyUrl          = $config[base_url]policy.html
+nsRevocationUrl        = $config[base_url]$config[revoke_url]$serial
+nsCaPolicyUrl          = $config[base_url]$config[policy_url]
 
 [ email_signing_ext ]
 basicConstraints       = critical, CA:false
@@ -165,11 +165,11 @@ subjectKeyIdentifier   = hash
 authorityKeyIdentifier = keyid:always, issuer:always
 subjectAltName         = email:copy
 issuerAltName          = issuer:copy
-crlDistributionPoints  = URI:$config[base_url]index.php?stage=dl_crl
-nsComment              = \"PHPki/OpenSSL Generated Personal Certificate\"
+crlDistributionPoints  = URI:$config[base_url]$config[crl_distrib]
+nsComment              = $config[comment_sign]
 nsBaseUrl              = $config[base_url]
-nsRevocationUrl        = $config[base_url]ns_revoke_query.php?$serial
-nsCaPolicyUrl          = $config[base_url]policy.html
+nsRevocationUrl        = $config[base_url]$config[revoke_url]$serial
+nsCaPolicyUrl          = $config[base_url]$config[policy_url]
 
 [ server_ext ]
 basicConstraints        = critical, CA:false
@@ -180,11 +180,11 @@ subjectKeyIdentifier    = hash
 authorityKeyIdentifier  = keyid:always, issuer:always
 subjectAltName          = $server_altnames
 issuerAltName           = issuer:copy
-crlDistributionPoints   = URI:$config[base_url]index.php?stage=dl_crl
-nsComment               = \"PHPki/OpenSSL Generated Server Certificate\"
+crlDistributionPoints   = URI:$config[base_url]$config[crl_distrib]
+nsComment               = $config[comment_srv]
 nsBaseUrl               = $config[base_url]
-nsRevocationUrl         = $config[base_url]ns_revoke_query.php?$serial
-nsCaPolicyUrl           = $config[base_url]policy.html
+nsRevocationUrl         = $config[base_url]$config[revoke_url]$serial
+nsCaPolicyUrl           = $config[base_url]$config[policy_url]
 
 [ time_stamping_ext ]
 basicConstraints       = CA:false
@@ -194,10 +194,10 @@ subjectKeyIdentifier   = hash
 authorityKeyIdentifier = keyid:always, issuer:always
 subjectAltName         = DNS:$common_name,email:copy
 issuerAltName          = issuer:copy
-crlDistributionPoints   = URI:$config[base_url]index.php?stage=dl_crl
-nsComment              = \"PHPki/OpenSSL Generated Time Stamping Certificate\"
+crlDistributionPoints   = URI:$config[base_url]$config[crl_distrib]
+nsComment              = $config[comment_stamp]
 nsBaseUrl              = $config[base_url]
-nsRevocationUrl        = $config[base_url]ns_revoke_query.php?$serial
+nsRevocationUrl        = $config[base_url]$config[revoke_url]$serial
 
 [ vpn_client_ext ]
 basicConstraints        = critical, CA:false
@@ -504,7 +504,7 @@ function CA_revoke_cert($serial) {
 //
 // Returns an array containing the output of failed openssl commands.
 //
-function CA_create_cert($cert_type='email',$country,$province,$locality,$organization,$unit,$common_name,$email,$expiry,$passwd,$keysize=1024,$dns_names,$ip_addr) {
+function CA_create_cert($cert_type='email',$country,$province,$locality,$organization,$unit,$common_name,$email,$expiry,$passwd,$keysize=2048,$dns_names,$ip_addr) {
 	global $config;
 
 	# Wait here if another user has the database locked.
