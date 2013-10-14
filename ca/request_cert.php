@@ -133,8 +133,12 @@ case 'confirm':
 	Certificate Life<br>
 	Key Size<br>
 	Certificate Use<br>
-	IP Addresses<br>
-	DNS Alt Names<br>
+	<?php
+	if  ($cert_type == 'server' ) {
+	print 'DNS Alt Names<br>';
+	print 'IP Addresses<br>';
+	}
+	?>
     	</td>
 
     	<td>
@@ -148,9 +152,25 @@ case 'confirm':
     	print htvar($country) . '<br>';
 	print htvar($expiry). ' Year'.($expiry == 1 ? '' : 's').'<br>';
 	print htvar($keysize). ' bits<br>';
-	print htvar($cert_type). '<br>';
-    print htvar($dns_names). '<br>';
-    print htvar($ip_addr). '<br>';
+
+	switch  ($cert_type) {
+	    case 'email': print 'E-mail, SSL Client' . '<br>';
+		break;
+	    case 'email_signing': print 'E-mail, SSL Client, Code Signing' . '<br>';
+		break;
+	    case 'server': 
+		print 'SSL Server' . '<br>';
+		print htvar($dns_names). '<br>';
+		print htvar($ip_addr). '<br>';
+		break;
+	    case 'vpn_client': print 'VPN Client Only' . '<br>';
+		break;
+	    case 'vpn_server': print 'VPN Server Only' . '<br>';
+		break;
+	    case 'vpn_client_server': print 'VPN Client, VPN Server' . '<br>';
+		break;
+	    case 'time_stamping': print 'Time Stamping' . '<br>';
+	}
 	?>
     	</td>
 
@@ -243,14 +263,14 @@ default:
 	if (! $unit)          $unit = "";
 	if (! $email)         $email = "";
 	if (! $expiry)        $expiry = 1;
-	if (! $keysize)       $keysize = 1024;
+	if (! $keysize)       $keysize = 2048;
 	if (! $cert_type)     $cert_type = 'email';
 	if (! $dns_names)     $dns_names = "";
 	if (! $ip_addr)       $ip_addr = "";
 
 	printHeader();
 	?>
-	<body onLoad="self.focus();document.request.common_name.focus()">
+	<body onLoad="self.focus();document.request.common_name.focus();document.request.cert_type.onchange()">
 	<form action="<?php echo $PHP_SELF?>" method=post name=request>
 	<table width=99%>
 	<th colspan=2><h3>Certificate Request Form</h3></th>
@@ -315,7 +335,7 @@ default:
 	<td><select name=keysize>
 	<?php
 	for ( $i = 512 ; $i <= 4096 ; $i+= 512 ) {
-		print "<option value=$i " . ($keysize == $i ? "selected='selected'" : "") . " >$i bits</option>\n" ;
+		print "<option value=$i " . ($keysize == $i ? "selected='selected'" : "") . ">$i bits</option>\n" ;
 	}
 
 	?>
@@ -345,7 +365,7 @@ default:
 	<tr id="testrow1" name="testrow1" style="visibility:hidden;display:none;">
 	<td>IP's<br>(only one per Line)</td><td><textarea name=ip_addr cols=30 rows=5><?= htvar($ip_addr) ?></textarea></td>
 	</tr>
-	
+
 	<tr>
 	<td><center><input type=submit name=submit value='Submit Request'></center><input type=hidden name=form_stage value='validate'></td><td><font color=red size=3>* Fields are required</td>
 	</tr>

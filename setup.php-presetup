@@ -54,6 +54,14 @@ $passwdv      = gpvar('passwdv');
 $expiry       = gpvar('expiry');
 $keysize      = gpvar('keysize');
 $base_url     = gpvar('base_url');
+$crl_distrib  = gpvar('crl_distrib');
+$revoke_url   = gpvar('revoke_url');
+$policy_url   = gpvar('policy_url');
+$comment_root = gpvar('comment_root');
+$comment_email = gpvar('comment_email');
+$comment_sign = gpvar('comment_sign');
+$comment_srv  = gpvar('comment_srv');
+$comment_stamp = gpvar('comment_stamp');
 $openssl_bin  = gpvar('openssl_bin');
 $passwd_file  = gpvar('passwd_file');
 $getting_help = gpvar('getting_help');
@@ -76,6 +84,14 @@ $hidden_fields = '
     <input type=hidden name=expiry value="' . htvar($expiry) . '">
     <input type=hidden name=keysize value="' . htvar($keysize) . '">
     <input type=hidden name=base_url value="' . htvar($base_url) . '">
+    <input type=hidden name=crl_distrib value="' . htvar($crl_distrib) . '">
+    <input type=hidden name=revoke_url value="' . htvar($revoke_url) . '">
+    <input type=hidden name=policy_url value="' . htvar(policy_url) . '">
+    <input type=hidden name=comment_root value="' . htvar(comment_root) . '">
+    <input type=hidden name=comment_email value="' . htvar(comment_email) . '">
+    <input type=hidden name=comment_sign value="' . htvar(comment_sign) . '">
+    <input type=hidden name=comment_srv value="' . htvar(comment_srv) . '">
+    <input type=hidden name=comment_stamp value="' . htvar(comment_stamp) . '">
     <input type=hidden name=openssl_bin value="' . htvar($openssl_bin) . '">
     <input type=hidden name=getting_help value="' . htvar($getting_help) . '">
     <input type=hidden name=ca_prefix value="' . htvar($ca_prefix) . '">
@@ -221,6 +237,22 @@ case 'write':
 # Base URL
 \$config['base_url']  = '$base_url';
 
+# CRL Distribution points path
+\$config['crl_distrib']  = '$crl_distrib';
+
+# Certificate Revocation URL
+\$config['revoke_url']  = '$revoke_url';
+
+# Certificate Authority Policy URL
+\$config['policy_url']  = '$policy_url'; 
+
+# Certificate Comment Fields
+\$config['comment_root']  = '$comment_root';
+\$config['comment_email']  = '$comment_email';
+\$config['comment_sign']  = '$comment_sign';
+\$config['comment_srv']  = '$comment_srv';
+\$config['comment_stamp']  = '$comment_stamp';
+
 # Who users should contact if they have technical difficulty with
 # your certificate authority site.
 \$config['getting_help'] = '$getting_help';
@@ -364,10 +396,10 @@ keyUsage               = cRLSign, keyCertSign
 nsCertType             = sslCA, emailCA, objCA
 subjectKeyIdentifier   = hash
 subjectAltName         = email:copy
-crlDistributionPoints  = URI:$config[base_url]index.php?stage=dl_crl
-nsComment              = "PHPki/OpenSSL Generated Root Certificate Authority"
-#nsCaRevocationUrl	    = ns_revoke_query.php?
-nsCaPolicyUrl          = $config[base_url]policy.html
+crlDistributionPoints  = URI:$config[base_url]$config[crl_distrib]
+nsComment              = $config[comment_root]
+#nsCaRevocationUrl     =
+nsCaPolicyUrl          = $config[base_url]$config[policy_url]
 
 [ email_ext ]
 basicConstraints       = critical, CA:false
@@ -378,12 +410,12 @@ subjectKeyIdentifier   = hash
 authorityKeyIdentifier = keyid:always, issuer:always
 subjectAltName         = email:copy
 issuerAltName          = issuer:copy
-crlDistributionPoints  = URI:$config[base_url]index.php?stage=dl_crl
-nsComment              = "PHPki/OpenSSL Generated Personal Certificate"
+crlDistributionPoints  = URI:$config[base_url]$config[crl_distrib]
+nsComment              = $config[comment_email]
 nsBaseUrl              = $config[base_url]
-nsRevocationUrl	       = ns_revoke_query.php?
+nsRevocationUrl        = $config[revoke_url]
 #nsRenewalUrl          =
-nsCaPolicyUrl          = $config[base_url]policy.html
+nsCaPolicyUrl          = $config[base_url]$config[policy_url]
 #nsSslServerName       =
 
 [ email_signing_ext ]
@@ -395,12 +427,12 @@ subjectKeyIdentifier   = hash
 authorityKeyIdentifier = keyid:always, issuer:always
 subjectAltName         = email:copy
 issuerAltName          = issuer:copy
-crlDistributionPoints  = URI:$config[base_url]index.php?stage=dl_crl
-nsComment              = "PHPki/OpenSSL Generated Personal Certificate"
+crlDistributionPoints  = URI:$config[base_url]$config[crl_distrib]
+nsComment              = $config[comment_sign]
 nsBaseUrl              = $config[base_url]
-nsRevocationUrl	       = ns_revoke_query.php?
+nsRevocationUrl	       = $config[revoke_url]
 #nsRenewalUrl          =
-nsCaPolicyUrl          = $config[base_url]policy.html
+nsCaPolicyUrl          = $config[base_url]$config[policy_url]
 #nsSslServerName       =
 
 [ server_ext ]
@@ -412,11 +444,11 @@ subjectKeyIdentifier    = hash
 authorityKeyIdentifier  = keyid:always, issuer:always
 subjectAltName          = DNS:$common_name,email:copy
 issuerAltName           = issuer:copy
-crlDistributionPoints   = URI:$config[base_url]index.php?stage=dl_crl
-nsComment               = "PHPki/OpenSSL Generated Secure Server Certificate"
-nsBaseUrl		        = $config[base_url]
-nsRevocationUrl		    = ns_revoke_query.php?
-nsCaPolicyUrl           = $config[base_url]policy.html
+crlDistributionPoints   = URI:$config[base_url]$config[crl_distrib]
+nsComment               = $config[comment_srv]
+nsBaseUrl               = $config[base_url]
+nsRevocationUrl         = $config[revoke_url]
+nsCaPolicyUrl           = $config[base_url]$config[policy_url]
 
 [ time_stamping_ext ]
 basicConstraints       = CA:false
@@ -426,12 +458,11 @@ subjectKeyIdentifier   = hash
 authorityKeyIdentifier = keyid:always, issuer:always
 subjectAltName         = DNS:$common_name,email:copy
 issuerAltName          = issuer:copy
-crlDistributionPoints  = URI:$config[base_url]index.php?stage=dl_crl
-nsComment              = \"PHPki/OpenSSL Generated Time Stamping Certificate\"
+crlDistributionPoints  = URI:$config[base_url]$config[crl_distrib]
+nsComment              = $config[comment_stamp]
 nsBaseUrl              = $config[base_url]
-nsRevocationUrl        = ns_revoke_query.php?
-nsCaPolicyUrl          = $config[base_url]policy.html
-
+nsRevocationUrl        = $config[revoke_url]
+nsCaPolicyUrl          = $config[base_url]$config[policy_url]
 
 [ vpn_client_ext ]
 basicConstraints        = critical, CA:false
@@ -469,7 +500,7 @@ EOS;
 
 	$config_txt2 = <<< EOS
 [ req ]
-default_bits		= 1024
+default_bits		= 2048
 default_keyfile		= privkey.pem
 distinguished_name	= req_name
 string_mask		= nombstr
@@ -508,7 +539,7 @@ EOS;
 
 	$config_txt3 = <<< EOS
 [ req ]
-default_bits		= 1024
+default_bits		= 2048
 default_keyfile		= privkey.pem
 distinguished_name	= req_name
 string_mask		= nombstr
@@ -593,25 +624,6 @@ EOS;
 	#
 	if (! unlink("$store_dir/tmp/openssl.cnf")) print "Can't unlink $store_dir/tmp/openssl.cnf";
 
-
-	#
-	# Create dhparam files for OpenVPN and others.
-	#
-	print '<p><strong>Creating 1024 bit Diffie-Hellman parameters used by OpenVPN.<br>';
-	print "Saving to $store_dir/dhparam1024.pem.</strong><br>";
-	$cmd = "openssl dhparam -rand '$config[random]' -out '$config[private_dir]/dhparam1024.pem' 1024";
-	print $cmd.'<br>';
-	flush();
-	flush_exec($cmd,100);
-
-
-	#print '<p><strong>Creating 2048 bit Diffie-Hellman parameters used by OpenVPN.<br>';
-	#print "Saving to $store_dir/dhparam2048.pem.</strong><br>";
-	#$cmd = "openssl dhparam -rand '$config[random]' -out '$config[private_dir]/dhparam2048.pem' 2048";
-	#print $cmd.'<br>';
-	#flush();
-	#flush_exec($cmd,200);
-	
 	#
 	# Step aside and let the users in (create index.php files).  
 	#
@@ -643,7 +655,7 @@ default:
 	if (! $expiry) $expiry = $config['expiry'];
 	if (! $expiry) $expiry = 10;
 	if (! $keysize) $keysize = $config['keysize'];
-	if (! $keysize) $keysize = 1024;
+	if (! $keysize) $keysize = 2048;
 	if (! $passwd) $passwd = $config['ca_pwd'];
 	if (! $passwdv) $passwdv = $passwd;
 
@@ -669,6 +681,16 @@ E-mail: <a href=mailto:someone@somewhere.com>someone@somewhere.com</a>&nbsp;&nbs
 
 	if (! $base_url) $base_url = $config['base_url'];
 	if (! $base_url) $base_url = 'http://www.somewhere.com/phpki/';
+
+	if (! $crl_distrib) $crl_distrib = 'index.php?stage=dl_crl';
+	if (! $revoke_url) $revoke_url = 'ns_revoke_query.php?';
+	if (! $policy_url) $policy_url = 'policy.html';
+
+	if (! $comment_root) $comment_root = 'PHPki/OpenSSL Generated Root Certificate Authority';
+	if (! $comment_email) $comment_email = 'PHPki/OpenSSL Generated Personal Certificate';
+	if (! $comment_sign) $comment_sign = 'PHPki/OpenSSL Generated Personal Certificate';
+	if (! $comment_srv) $comment_srv = 'PHPki/OpenSSL Generated Secure Server Certificate';
+	if (! $comment_stamp) $comment_stamp = 'PHPki/OpenSSL Generated Time Stamping Certificate';
 
 	if (! $ca_prefix) $ca_prefix = $config['ca_prefix'];
 
@@ -770,8 +792,7 @@ E-mail: <a href=mailto:someone@somewhere.com>someone@somewhere.com</a>&nbsp;&nbs
 
 	<?php
         for ( $i = 512 ; $i <= 4096 ; $i+=512 ) {
-                print "<option value=$i " . ($keysize == $i ? "selected='selected
-'" : "") . " >$i bits</option>\n" ;
+                print "<option value=$i " . ($keysize == $i ? "selected='selected'" : "") . ">$i bits</option>\n" ;
         }
 	?>
 
@@ -788,6 +809,97 @@ E-mail: <a href=mailto:someone@somewhere.com>someone@somewhere.com</a>&nbsp;&nbs
 	</td>
 	<td>
 	<input type=text name=base_url value="<?php echo htvar($base_url)?>" size=50>
+	</td>
+	</tr>
+
+	<tr>
+	<td>
+	<strong>Certificate Authority CRL Distribution Points</strong><br>
+	 Provide the public URL where Certificate Revocation List (CRL) of
+	 your CA will reside. This path is relative to Base URL above.
+	 You may leave it by default if your clients have direct access to PHPki.
+	</td>
+	<td>
+	<input type=text name=crl_distrib value="<?php echo htvar($crl_distrib)?>" size=50>
+	</td>
+	</tr>
+
+	<tr>
+	<td>
+	<strong>Certificate Authority Revocation Check URL</strong><br>
+	 Provide the public URL where clients of your CA can check if the requested
+	 certificate has been revoked. This path is relative to Base URL above.
+	 You may leave it by default if your clients have direct access to PHPki.
+	</td>
+	<td>
+	<input type=text name=revoke_url value="<?php echo htvar($revoke_url)?>" size=50>
+	</td>
+	</tr>
+
+	<tr>
+	<td>
+	<strong>Certificate Authority Policy URL</strong><br>
+	 Provide the public URL where your CA policy will reside.
+	 This path is relative to Base URL above.
+	 You may leave it by default or adjust to your environment.
+	</td>
+	<td>
+	<input type=text name=policy_url value="<?php echo htvar($policy_url)?>" size=50>
+	</td>
+	</tr>
+
+	<tr>
+	<td>
+	<strong>Root Certificate Comment</strong><br>
+	 Root certificate Comment attribute. You may change it to something
+	 or use the default value set by PHPki.
+	</td>
+	<td>
+	<input type=text name=comment_root value="<?php echo htvar($comment_root)?>" size=50>
+	</td>
+	</tr>
+
+	<tr>
+	<td>
+	<strong>Email Certificate Comment</strong><br>
+	 Email certificate Comment attribute. You may change it to something
+	 or use the default value set by PHPki.
+	</td>
+	<td>
+	<input type=text name=comment_email value="<?php echo htvar($comment_email)?>" size=50>
+	</td>
+	</tr>
+
+	<tr>
+	<td>
+	<strong>Email/Signing Certificate Comment</strong><br>
+	 Email and signing certificate Comment attribute. You may change it
+	 to something or use the default value set by PHPki.
+	</td>
+	<td>
+	<input type=text name=comment_sign value="<?php echo htvar($comment_sign)?>" size=50>
+	</td>
+	</tr>
+
+	<tr>
+	<td>
+	<strong>SSL Server Certificate Comment</strong><br>
+	 SSL server certificate Comment attribute. You may change it to something
+	 or use the default value set by PHPki.
+	</td>
+	<td>
+	<input type=text name=comment_srv value="<?php echo htvar($comment_srv)?>" size=50>
+	</td>
+	</tr>
+
+	<tr>
+	<td>
+	<strong>Time Stamping Certificate Comment</strong><br>
+	 Time stamping certificate Comment attribute. You may change it
+	 to something or use the default value set by PHPki.
+	</td>
+	<td>
+	<input type=text name=comment_stamp value="<?php echo htvar($comment_stamp)?>" size=50>
 	</td>
 	</tr>
 

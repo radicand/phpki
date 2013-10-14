@@ -122,7 +122,7 @@ function printHeader($withmenu="default") {
 		}
 
 		if (file_exists('../policy.html')) {
-			print '<a class='.$menuclass.' style="color: red;" href=\"../policy.html\" target=\"help\">Policy</a>';
+			print '<a class='.$menuclass.' style="color: red;" href="../policy.html" target="help">Policy</a>';
 		}
 		?>
 		<a class=<?php echo $menuclass?> href="../help.php" target="_help">Help</a>

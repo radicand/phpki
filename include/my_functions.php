@@ -205,6 +205,8 @@ function is_ip( $ip = null ) {
 # Returns True if the given string is a valid FQDN
 #
 function is_fqdn($FQDN) {
+    // remove leading wildcard characters if exist
+    $FQDN = preg_replace('/^\*\./','', $FQDN, 1);
     return (!empty($FQDN) && preg_match('/(?=^.{1,254}$)(^(?:(?!\d|-)[a-z0-9\-]{1,63}(?<!-)\.)+(?:[a-z]{2,})$)/i', $FQDN) > 0);
 }
 
