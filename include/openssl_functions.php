@@ -174,7 +174,7 @@ nsCaPolicyUrl          = $config[base_url]$config[policy_url]
 [ server_ext ]
 basicConstraints        = critical, CA:false
 keyUsage                = critical, digitalSignature, keyEncipherment
-nsCertType              = critical, server
+nsCertType              = server
 extendedKeyUsage        = critical, serverAuth
 subjectKeyIdentifier    = hash
 authorityKeyIdentifier  = keyid:always, issuer:always
