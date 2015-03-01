@@ -207,7 +207,7 @@ function is_ip( $ip = null ) {
 function is_fqdn($FQDN) {
     // remove leading wildcard characters if exist
     $FQDN = preg_replace('/^\*\./','', $FQDN, 1);
-    return (!empty($FQDN) && preg_match('/(?=^.{1,254}$)(^(?:(?!\d|-)[a-z0-9\-]{1,63}(?<!-)\.)+(?:[a-z]{2,})$)/i', $FQDN) > 0);
+    return (!empty($FQDN) && preg_match('/^(?=.{1,254}$)((?=[a-z0-9-]{1,63}\.)(xn--+)?[a-z0-9]+(-[a-z0-9]+)*\.)+(xn--+)?[a-z0-9]{2,63}$/i', $FQDN) > 0);
 }
 
 #
