@@ -359,11 +359,11 @@ default:
 	</tr>
 
 	<tr id="testrow2" name="testrow2" style="visibility:hidden;display:none;">
-	<td>Alternative DNS Names<br>(only one per Line)</td><td><textarea name=dns_names cols=30 rows=5><?= htvar($dns_names) ?></textarea></td>
+	<td>Alternative DNS Names<br>(only one per Line)</td><td><textarea name=dns_names cols=30 rows=5><?php echo htvar($dns_names) ?></textarea></td>
 	</tr>
 
 	<tr id="testrow1" name="testrow1" style="visibility:hidden;display:none;">
-	<td>IP's<br>(only one per Line)</td><td><textarea name=ip_addr cols=30 rows=5><?= htvar($ip_addr) ?></textarea></td>
+	<td>IP's<br>(only one per Line)</td><td><textarea name=ip_addr cols=30 rows=5><?php echo htvar($ip_addr) ?></textarea></td>
 	</tr>
 
 	<tr>
