@@ -364,10 +364,10 @@ PHPki glossary of terms.
 <p>
 <h2><a name="GETTING-HELP">GETTING ADDITIONAL HELP</a></h2>
 <blockquote>
-<?=$config[getting_help]?>
+<?php echo $config[getting_help]?>
 </blockquote>
 <br>
 
-<?
+<?php
 printFooter();
 ?>

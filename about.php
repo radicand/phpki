@@ -10,7 +10,7 @@ printHeader('about');
 ?>
 <p>
 PHPki is an <a href=http://www.opensource.org target=_blank>Open Source</a>
-Web application for managing a <a href=<?=BASE_URL?>help/glossary.html#PKI target=help/glossary>
+Web application for managing a <a href=<?php echo BASE_URL?>help/glossary.html#PKI target=help/glossary>
 Public Key Infrastructure</a> within a small organizations. PHPki acts as a
 mechanism for the centralized creation and management of digital certificates.
 PHPki is capable of managing certificates for multiple organizations or user
